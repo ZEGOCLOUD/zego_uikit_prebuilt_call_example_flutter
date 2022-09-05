@@ -105,7 +105,7 @@ class LivePage extends StatelessWidget {
           turnOnMicrophoneWhenJoining: isHost,
           useSpeakerWhenJoining: !isHost,
           bottomMenuBarConfig: ZegoBottomMenuBarConfig(
-            menuBarButtons: isHost
+            buttons: isHost
                 ? [
               ZegoLiveMenuBarButtonName.toggleCameraButton,
               ZegoLiveMenuBarButtonName.toggleMicrophoneButton,
