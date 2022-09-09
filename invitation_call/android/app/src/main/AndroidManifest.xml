@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.uikit_easy_invitation_call">
+    package="com.zegocloud.uikit.flutter.call_with_invitation">
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
    <application
-        android:label="ZegoInvitationCall"
+        android:label="call_with_invitation"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

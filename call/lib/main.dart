@@ -22,12 +22,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return const MaterialApp(home: HomePage(isVideoCall: true));
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final bool isVideoCall;
+
+  const HomePage({Key? key, required this.isVideoCall}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,24 @@ class HomePage extends StatelessWidget {
               userID: localUserID,
               userName: "user_$localUserID",
               callID: callID,
-              config: ZegoUIKitPrebuiltCallConfig(),
+              config: ZegoUIKitPrebuiltCallConfig(
+                turnOnCameraWhenJoining: isVideoCall,
+                bottomMenuBarConfig: ZegoBottomMenuBarConfig(
+                  buttons: isVideoCall
+                      ? const [
+                          ZegoMenuBarButtonName.toggleCameraButton,
+                          ZegoMenuBarButtonName.toggleMicrophoneButton,
+                          ZegoMenuBarButtonName.hangUpButton,
+                          ZegoMenuBarButtonName.switchAudioOutputButton,
+                          ZegoMenuBarButtonName.switchCameraButton,
+                        ]
+                      : const [
+                          ZegoMenuBarButtonName.toggleMicrophoneButton,
+                          ZegoMenuBarButtonName.hangUpButton,
+                          ZegoMenuBarButtonName.switchAudioOutputButton,
+                        ],
+                ),
+              ),
             );
           }),
         ),

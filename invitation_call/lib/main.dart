@@ -5,7 +5,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signal_plugin/zego_uikit_signal_plugin.dart';
 
 /// Note that the userID needs to be globally unique,
 final String localUserID = math.Random().nextInt(10000).toString();
@@ -19,14 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return const MaterialApp(home: HomePage(isVideoCall: true));
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({
-    Key? key,
-  }) : super(key: key);
+  final bool isVideoCall;
+
+  const HomePage({Key? key, required this.isVideoCall}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -80,22 +80,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget inviteeUserIDInput() => SizedBox(
-    width: 200,
-    child: TextFormField(
-      controller: inviteeUserIDTextCtrl,
-      decoration: const InputDecoration(
-        isDense: true,
-        hintText: "Please Enter Invitee User ID",
-        labelText: "Invitee User ID",
-      ),
-    ),
-  );
+        width: 200,
+        child: TextFormField(
+          controller: inviteeUserIDTextCtrl,
+          decoration: const InputDecoration(
+            isDense: true,
+            hintText: "Please Enter Invitee User ID",
+            labelText: "Invitee User ID",
+          ),
+        ),
+      );
 
   Widget callButton(bool isVideoCall) =>
       ValueListenableBuilder<TextEditingValue>(
         valueListenable: inviteeUserIDTextCtrl,
         builder: (context, inviteeUserID, _) {
-          return ZegoStartCallCallInvitation(
+          return ZegoSendCallInvitationButton(
             isVideoCall: isVideoCall,
             invitees: [
               ZegoUIKitUser(

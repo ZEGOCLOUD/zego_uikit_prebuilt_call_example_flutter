@@ -1,8 +1,8 @@
-# Quick start (with call invitation)
+# Quick start
 
 ---
 
-## Add ZegoUIKitPrebuiltCall as dependencies
+## Add ZegoUIKitPrebuiltCallWithInvitation as dependencies
 
 1. Edit your project's pubspec.yaml and add local project dependencies
 
@@ -10,7 +10,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_prebuilt_call: ^0.0.4 # Add this line
+  zego_uikit_signal_plugin: ^0.0.1 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -24,7 +24,7 @@ flutter pub get
 Now in your Dart code, you can import prebuilt.
 
 ```dart
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signal_plugin/zego_uikit_signal_plugin.dart';
 ```
 
 ## Integrate the call functionality with the invitation feature
@@ -32,14 +32,14 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 ### 1. Warp your widget with ZegoUIKitPrebuiltCallWithInvitation
 
 > You can get the AppID and AppSign from [ZEGOCLOUD&#39;s Console](https://console.zegocloud.com).
-> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCall supports 1 on 1 call for now, and will support group call soon)
+> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCallWithInvitation supports 1 on 1 call for now, and will support group call soon)
 
 ```dart
 @override
 Widget build(BuildContext context) {
    return ZegoUIKitPrebuiltCallWithInvitation(
       appID: yourAppID,
-      appSign: kIsWeb ? '' : yourAppSign,
+      appSign: yourAppSign,
       userID: userID,
       userName: useName,
       requireConfig: (ZegoCallInvitationData data) {
@@ -75,7 +75,7 @@ Now, you can invite someone to the call by simply clicking this button.
 Widget build(BuildContext context) {
    return ZegoUIKitPrebuiltCallWithInvitation(
       appID: yourAppID,
-      appSign: kIsWeb ? '' : yourAppSign,
+      appSign: yourAppSign,
       userID: userID,
       userName: userName,
       //  we will ask you for config when we need it, you can customize your app with data
@@ -84,7 +84,7 @@ Widget build(BuildContext context) {
         config.turnOnCameraWhenJoining =
             ZegoInvitationType.videoCall == data.type;
         if (ZegoInvitationType.videoCall == data.type) {
-          config.menuBarExtendButtons = [
+          config.bottomMenuBarConfig.extendButtons = [
             IconButton(color: Colors.white, icon: const Icon(Icons.phone), onPressed:() {}),
             IconButton(color: Colors.white, icon: const Icon(Icons.cookie), onPressed:() {}),
             IconButton(color: Colors.white, icon: const Icon(Icons.speaker), onPressed:() {}),
