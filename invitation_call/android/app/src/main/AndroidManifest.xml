@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
    <application
-        android:label="call_with_invitation"
+        android:label="ZegoUlKitCallWithInvitation"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
