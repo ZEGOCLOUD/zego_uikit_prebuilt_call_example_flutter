@@ -12,7 +12,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_prebuilt_call: ^1.0.2 # Add this line
+  zego_uikit_prebuilt_call: ^1.0.3 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -47,16 +47,19 @@ class CallPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZegoUIKitPrebuiltCall(
-        appID: yourAppID,
-        appSign: yourAppSign,
-        userID: userID,
-        userName: userName,
-        callID: callID,
-        config: ZegoUIKitPrebuiltCallConfig(
-           onOnlySelfInRoom: () {
-              Navigator.of(context).pop();
-           },
+      appID: yourAppID,
+      appSign: yourAppSign,
+      userID: userID,
+      userName: userName,
+      callID: callID,
+      config: ZegoUIKitPrebuiltCallConfig(
+        layout: ZegoLayout.sideBySide(),
+        topMenuBarConfig: ZegoTopMenuBarConfig(
+          buttons: [
+            ZegoMenuBarButtonName.showMemberListButton,
+          ],
         ),
+      ),
     );
   }
 }
