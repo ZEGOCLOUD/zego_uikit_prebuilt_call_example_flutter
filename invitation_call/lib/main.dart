@@ -44,10 +44,12 @@ class _HomePageState extends State<HomePage> {
       userName: "user_$localUserID",
       //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
-        var config = ZegoUIKitPrebuiltCallConfig();
-        config.turnOnCameraWhenJoining =
-            ZegoInvitationType.videoCall == data.type;
-        return config;
+        return ZegoUIKitPrebuiltCallConfig.oneOnOne(
+          isVideo: true,
+          onOnlySelfInRoom: () {
+            Navigator.of(context).pop();
+          },
+        );
       },
       child: body(context),
     );
@@ -79,7 +81,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget inviteeUserIDInput() => SizedBox(
+  Widget inviteeUserIDInput() =>
+      SizedBox(
         width: 200,
         child: TextFormField(
           controller: inviteeUserIDTextCtrl,

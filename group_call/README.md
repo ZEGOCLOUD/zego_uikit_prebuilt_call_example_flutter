@@ -42,6 +42,7 @@ You can get `appID` and `appSign` from [ZEGOCLOUD's Admin Console](https://conso
 
 ```dart
 class CallPage extends StatelessWidget {
+  final String callID;
   const CallPage({Key? key, required this.callID}) : super(key: key);
 
   @override

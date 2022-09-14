@@ -43,7 +43,12 @@ Widget build(BuildContext context) {
       userID: userID,
       userName: useName,
       requireConfig: (ZegoCallInvitationData data) {
-        return ZegoUIKitPrebuiltCallConfig();
+         return ZegoUIKitPrebuiltCallConfig.oneOnOne(
+            isVideo: true,
+            onOnlySelfInRoom: () {
+               Navigator.of(context).pop();
+            },
+         );
       },
       child: YourWidget(),
    );

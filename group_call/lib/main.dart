@@ -10,9 +10,6 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 /// Note that the userID needs to be globally unique,
 final String localUserID = math.Random().nextInt(10000).toString();
 
-/// Users who use the same callID can in the same call.
-const String callID = "group_call_id";
-
 void main() {
   runApp(const MyApp());
 }
@@ -22,62 +19,60 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage(isVideoCall: true));
+    return MaterialApp(home: GroupCallPage());
   }
 }
 
-class HomePage extends StatelessWidget {
-  final bool isVideoCall;
+class GroupCallPage extends StatelessWidget {
+  /// Users who use the same callID can in the same call.
+  var callIDTextCtrl = TextEditingController(text: "group_call_id");
 
-  const HomePage({Key? key, required this.isVideoCall}) : super(key: key);
+  GroupCallPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.call),
-        onPressed: () =>
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return SafeArea(
-                  child: ZegoUIKitPrebuiltCall(
-                    appID: /*input your AppID*/,
-                    appSign: /*input your AppSign*/,
-                    userID: localUserID,
-                    userName: "user_$localUserID",
-                    callID: callID,
-                    config: ZegoUIKitPrebuiltCallConfig(
-                      layout: ZegoLayout.sideBySide(),
-                      turnOnCameraWhenJoining: isVideoCall,
-                      topMenuBarConfig: ZegoTopMenuBarConfig(
-                        style: ZegoMenuBarStyle.dark,
-                        buttons: [
-                          ZegoMenuBarButtonName.showMemberListButton,
-                        ],
-                      ),
-                      bottomMenuBarConfig: ZegoBottomMenuBarConfig(
-                        style: ZegoMenuBarStyle.dark,
-                        buttons: isVideoCall
-                            ? const [
-                          ZegoMenuBarButtonName.toggleCameraButton,
-                          ZegoMenuBarButtonName.toggleMicrophoneButton,
-                          ZegoMenuBarButtonName.hangUpButton,
-                          ZegoMenuBarButtonName.switchAudioOutputButton,
-                          ZegoMenuBarButtonName.switchCameraButton,
-                        ]
-                            : const [
-                          ZegoMenuBarButtonName.toggleMicrophoneButton,
-                          ZegoMenuBarButtonName.hangUpButton,
-                          ZegoMenuBarButtonName.switchAudioOutputButton,
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: callIDTextCtrl,
+                  decoration: const InputDecoration(
+                      labelText: "join a group call by id"),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    onCallButtonPressed(context);
+                  },
+                  child: const Text("join"))
+            ],
+          ),
+        ),
       ),
+    );
+  }
+
+  void onCallButtonPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return SafeArea(
+          child: ZegoUIKitPrebuiltCall(
+            appID: /*input your AppID*/,
+            appSign: /*input your AppSign*/,
+            userID: localUserID,
+            userName: "user_$localUserID",
+            callID: callIDTextCtrl.text,
+            config: ZegoUIKitPrebuiltCallConfig.group(isVideo: true),
+          ),
+        );
+      }),
     );
   }
 }

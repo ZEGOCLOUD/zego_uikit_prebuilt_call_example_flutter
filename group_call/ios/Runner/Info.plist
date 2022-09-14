@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We require camera access to connect to a call</string>
+	<string>We require camera access to connect to a group call</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>We require microphone access to connect to a call</string>
+	<string>We require microphone access to connect to a group call</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Group Call</string>
+	<string>ZegoUIKitGroupCall</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

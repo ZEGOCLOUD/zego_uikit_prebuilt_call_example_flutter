@@ -42,23 +42,25 @@ You can get `appID` and `appSign` from [ZEGOCLOUD's Admin Console](https://conso
 
 ```dart
 class CallPage extends StatelessWidget {
-  const CallPage({Key? key, required this.callID}) : super(key: key);
+   final String callID;
+   const CallPage({Key? key, required this.callID}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ZegoUIKitPrebuiltCall(
-        appID: yourAppID,
-        appSign: yourAppSign,
-        userID: userID,
-        userName: userName,
-        callID: callID,
-        config: ZegoUIKitPrebuiltCallConfig(
-           onOnlySelfInRoom: () {
-              Navigator.of(context).pop();
-           },
-        ),
-    );
-  }
+   @override
+   Widget build(BuildContext context) {
+      return ZegoUIKitPrebuiltCall(
+              appID: yourAppID,
+              appSign: yourAppSign,
+              userID: userID,
+              userName: userName,
+              callID: callID,
+              config: ZegoUIKitPrebuiltCallConfig.oneOnOne(
+                 isVideo: true,
+                 onOnlySelfInRoom: () {
+                    Navigator.of(context).pop();
+                 },
+              ),
+      );
+   }
 }
 ```
 
