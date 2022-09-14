@@ -43,7 +43,7 @@ class CallPage extends StatelessWidget {
                 child: TextFormField(
                   controller: callIDTextCtrl,
                   decoration:
-                  const InputDecoration(labelText: "join a call by id"),
+                      const InputDecoration(labelText: "join a call by id"),
                 ),
               ),
               ElevatedButton(

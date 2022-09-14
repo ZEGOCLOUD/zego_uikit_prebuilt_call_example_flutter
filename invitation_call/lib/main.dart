@@ -19,20 +19,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage(isVideoCall: true));
+    return const MaterialApp(home: CallPage(isVideoCall: true));
   }
 }
 
-class HomePage extends StatefulWidget {
+class CallPage extends StatefulWidget {
   final bool isVideoCall;
 
-  const HomePage({Key? key, required this.isVideoCall}) : super(key: key);
+  const CallPage({Key? key, required this.isVideoCall}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CallPage> createState() => _CallPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CallPageState extends State<CallPage> {
   TextEditingController inviteeUserIDTextCtrl = TextEditingController();
 
   @override
@@ -81,8 +81,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget inviteeUserIDInput() =>
-      SizedBox(
+  Widget inviteeUserIDInput() => SizedBox(
         width: 200,
         child: TextFormField(
           controller: inviteeUserIDTextCtrl,
