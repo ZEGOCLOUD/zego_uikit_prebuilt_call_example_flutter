@@ -33,11 +33,8 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 You can get `appID` and `appSign` from [ZEGOCLOUD's Admin Console](https://console.zegocloud.com/). Pick up the `userID` and `userName` for connecting to ZEGOCLOUD's service. And you should also pick up a `callID` for making a new call.
 
-<div class="mk-hint">
-
 - `userID` and `callID` can only contain numbers, letters, and underlines (_).
 - Users that join the call with the same `callID` can talk to each other.
-</div>
 
 
 ```dart
@@ -50,17 +47,10 @@ class CallPage extends StatelessWidget {
     return ZegoUIKitPrebuiltCall(
       appID: yourAppID,
       appSign: yourAppSign,
-      userID: userID,
-      userName: userName,
+      userID: 'user_id',
+      userName: 'user_name',
       callID: callID,
-      config: ZegoUIKitPrebuiltCallConfig(
-        layout: ZegoLayout.sideBySide(),
-        topMenuBarConfig: ZegoTopMenuBarConfig(
-          buttons: [
-            ZegoMenuBarButtonName.showMemberListButton,
-          ],
-        ),
-      ),
+      config: ZegoUIKitPrebuiltCallConfig.groupVideo(),
     );
   }
 }
