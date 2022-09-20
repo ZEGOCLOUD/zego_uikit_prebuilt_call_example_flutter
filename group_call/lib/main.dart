@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
 class GroupCallPage extends StatelessWidget {
   /// Users who use the same callID can in the same call.
-  var callIDTextCtrl = TextEditingController(text: "group_call_id");
+  final callIDTextCtrl = TextEditingController(text: "group_call_id");
 
   GroupCallPage({Key? key}) : super(key: key);
 
@@ -48,7 +48,12 @@ class GroupCallPage extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    onCallButtonPressed(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return CallPage(callID: callIDTextCtrl.text);
+                      }),
+                    );
                   },
                   child: const Text("join"))
             ],
@@ -57,22 +62,27 @@ class GroupCallPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  void onCallButtonPressed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return SafeArea(
-          child: ZegoUIKitPrebuiltCall(
-            appID: /*input your AppID*/,
-            appSign: /*input your AppSign*/,
-            userID: localUserID,
-            userName: "user_$localUserID",
-            callID: callIDTextCtrl.text,
-            config: ZegoUIKitPrebuiltCallConfig.group(isVideo: true),
-          ),
-        );
-      }),
+class CallPage extends StatelessWidget {
+  final String callID;
+
+  const CallPage({
+    Key? key,
+    required this.callID,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: ZegoUIKitPrebuiltCall(
+        appID: /*input your AppID*/,
+        appSign: /*input your AppSign*/,
+        userID: localUserID,
+        userName: "user_$localUserID",
+        callID: callID,
+        config: ZegoUIKitPrebuiltCallConfig.groupVideo(),
+      ),
     );
   }
 }

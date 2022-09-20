@@ -44,12 +44,13 @@ class _CallPageState extends State<CallPage> {
       userName: "user_$localUserID",
       //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
-        return ZegoUIKitPrebuiltCallConfig.oneOnOne(
-          isVideo: true,
-          onOnlySelfInRoom: () {
-            Navigator.of(context).pop();
-          },
-        );
+        var config = ZegoInvitationType.videoCall == data.type
+            ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideo()
+            : ZegoUIKitPrebuiltCallConfig.oneOnOneVoice();
+        config.onOnlySelfInRoom = () {
+          Navigator.of(context).pop();
+        };
+        return config;
       },
       child: body(context),
     );
@@ -81,33 +82,36 @@ class _CallPageState extends State<CallPage> {
     );
   }
 
-  Widget inviteeUserIDInput() => SizedBox(
-        width: 200,
-        child: TextFormField(
-          controller: inviteeUserIDTextCtrl,
-          decoration: const InputDecoration(
-            isDense: true,
-            hintText: "Please Enter Invitee User ID",
-            labelText: "Invitee User ID",
-          ),
+  Widget inviteeUserIDInput() {
+    return SizedBox(
+      width: 200,
+      child: TextFormField(
+        controller: inviteeUserIDTextCtrl,
+        decoration: const InputDecoration(
+          isDense: true,
+          hintText: "Please Enter Invitee User ID",
+          labelText: "Invitee User ID",
         ),
-      );
+      ),
+    );
+  }
 
-  Widget callButton(bool isVideoCall) =>
-      ValueListenableBuilder<TextEditingValue>(
-        valueListenable: inviteeUserIDTextCtrl,
-        builder: (context, inviteeUserID, _) {
-          return ZegoSendCallInvitationButton(
-            isVideoCall: isVideoCall,
-            invitees: [
-              ZegoUIKitUser(
-                id: inviteeUserIDTextCtrl.text,
-                name: 'user_${inviteeUserIDTextCtrl.text}',
-              )
-            ],
-            iconSize: const Size(30, 30),
-            buttonSize: const Size(40, 40),
-          );
-        },
-      );
+  Widget callButton(bool isVideoCall) {
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: inviteeUserIDTextCtrl,
+      builder: (context, inviteeUserID, _) {
+        return ZegoSendCallInvitationButton(
+          isVideoCall: isVideoCall,
+          invitees: [
+            ZegoUIKitUser(
+              id: inviteeUserIDTextCtrl.text,
+              name: 'user_${inviteeUserIDTextCtrl.text}',
+            )
+          ],
+          iconSize: const Size(30, 30),
+          buttonSize: const Size(40, 40),
+        );
+      },
+    );
+  }
 }

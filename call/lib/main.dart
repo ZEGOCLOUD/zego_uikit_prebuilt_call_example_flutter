@@ -19,15 +19,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CallPage());
+    return MaterialApp(home: HomePage());
   }
 }
 
-class CallPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   /// Users who use the same callID can in the same call.
-  var callIDTextCtrl = TextEditingController(text: "call_id");
+  final callIDTextCtrl = TextEditingController(text: "call_id");
 
-  CallPage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,12 @@ class CallPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  onCallButtonPressed(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return CallPage(callID: callIDTextCtrl.text);
+                    }),
+                  );
                 },
                 child: const Text("join"),
               )
@@ -58,25 +63,32 @@ class CallPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  void onCallButtonPressed(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return ZegoUIKitPrebuiltCall(
-          appID: /*input your AppID*/,
-          appSign: /*input your AppSign*/,
-          userID: localUserID,
-          userName: "user_$localUserID",
-          callID: callIDTextCtrl.text,
-          config: ZegoUIKitPrebuiltCallConfig.oneOnOne(
-            isVideo: true,
-            onOnlySelfInRoom: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      }),
+class CallPage extends StatelessWidget {
+  final String callID;
+
+  const CallPage({
+    Key? key,
+    required this.callID,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: ZegoUIKitPrebuiltCall(
+        appID: /*input your AppID*/,
+        appSign: /*input your AppSign*/,
+        userID: localUserID,
+        userName: "user_$localUserID",
+        callID: callID,
+        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideo()
+          ..onOnlySelfInRoom = () {
+            Navigator.of(context).pop();
+          },
+      ),
     );
   }
 }
+
+
