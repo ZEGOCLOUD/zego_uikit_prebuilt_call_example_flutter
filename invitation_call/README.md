@@ -10,7 +10,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_signal_plugin: ^0.0.1 # Add this line
+  zego_uikit_signal_plugin: ^1.0.2 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -43,7 +43,7 @@ Widget build(BuildContext context) {
       userID: userID,
       userName: useName,
       requireConfig: (ZegoCallInvitationData data) {
-         return ZegoUIKitPrebuiltCallConfig.oneOnOne(
+         return ZegoUIKitPrebuiltCallConfig.oneOnOneCall(
             isVideo: true,
             onOnlySelfInRoom: () {
                Navigator.of(context).pop();

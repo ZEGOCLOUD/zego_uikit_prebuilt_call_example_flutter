@@ -45,8 +45,8 @@ class _CallPageState extends State<CallPage> {
       //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
         var config = ZegoInvitationType.videoCall == data.type
-            ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideo()
-            : ZegoUIKitPrebuiltCallConfig.oneOnOneVoice();
+            ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+            : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
         config.onOnlySelfInRoom = () {
           Navigator.of(context).pop();
         };

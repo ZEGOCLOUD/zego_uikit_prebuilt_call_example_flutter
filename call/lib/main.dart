@@ -82,7 +82,7 @@ class CallPage extends StatelessWidget {
         userID: localUserID,
         userName: "user_$localUserID",
         callID: callID,
-        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideo()
+        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
           ..onOnlySelfInRoom = () {
             Navigator.of(context).pop();
           },
