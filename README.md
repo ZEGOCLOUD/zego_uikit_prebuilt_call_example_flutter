@@ -43,3 +43,5 @@ And it includes the business logic with the UI, you can add or remove features a
 - To configure prebuilt UI for a custom experience: [Custom Prebuilt UI](https://docs.zegocloud.com/article/14748)
 
 - To finest-grained build a call, you may try antoher one: [Video Call SDK](https://docs.zegocloud.com/article/5560)
+
+- If you have any questions regarding bugs and feature requests, visit the [ZEGOCLOUD community](https://discord.gg/EtNRATttyp) or email us at global_support@zegocloud.com.
