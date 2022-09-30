@@ -108,8 +108,8 @@ class _CallPageState extends State<CallPage> {
               name: 'user_${inviteeUserIDTextCtrl.text}',
             )
           ],
-          iconSize: const Size(30, 30),
-          buttonSize: const Size(40, 40),
+          iconSize: const Size(40, 40),
+          buttonSize: const Size(50, 50),
         );
       },
     );
