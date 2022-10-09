@@ -10,7 +10,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_signal_plugin: ^1.0.4 # Add this line
+  zego_uikit_signal_plugin: ^1.0.6 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
