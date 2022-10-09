@@ -77,15 +77,17 @@ class _CallPageState extends State<CallPage> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Your ID: $localUserID'),
+              Text('Your userID: $localUserID'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(width: 10),
                   inviteeUserIDInput(),
                   const SizedBox(width: 5),
                   callButton(false),
                   const SizedBox(width: 5),
                   callButton(true),
+                  const SizedBox(width: 10),
                 ],
               ),
             ],
@@ -96,8 +98,7 @@ class _CallPageState extends State<CallPage> {
   }
 
   Widget inviteeUserIDInput() {
-    return SizedBox(
-      width: 200,
+    return Expanded(
       child: TextFormField(
         controller: inviteeUsersIDTextCtrl,
         inputFormatters: [
