@@ -2,7 +2,7 @@
 
 ---
 
-## Add ZegoUIKitPrebuiltCallWithInvitation as dependencies
+## Add ZegoUIKitPrebuiltCallInvitationService as dependencies
 
 1. Edit your project's pubspec.yaml and add local project dependencies
 
@@ -10,7 +10,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_signal_plugin: ^1.0.6 # Add this line
+  zego_uikit_signaling_plugin: ^1.0.7 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -24,28 +24,28 @@ flutter pub get
 Now in your Dart code, you can import prebuilt.
 
 ```dart
-import 'package:zego_uikit_signal_plugin/zego_uikit_signal_plugin.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 ```
 
 ## Integrate the call functionality with the invitation feature
 
-### 1. Warp your widget with ZegoUIKitPrebuiltCallWithInvitation
+### 1. Warp your widget with ZegoUIKitPrebuiltCallInvitationService
 
 > You can get the AppID and AppSign from [ZEGOCLOUD&#39;s Console](https://console.zegocloud.com).
-> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCallWithInvitation supports 1 on 1 call for now, and will support group call soon)
+> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCallInvitationService supports 1 on 1 call for now, and will support group call soon)
 
 ```dart
 @override
 Widget build(BuildContext context) {
-   return ZegoUIKitPrebuiltCallWithInvitation(
+   return ZegoUIKitPrebuiltCallInvitationService(
       appID: yourAppID,
       appSign: yourAppSign,
       userID: userID,
-      userName: useName,
+      userName: userName,
       requireConfig: (ZegoCallInvitationData data) {
          return ZegoUIKitPrebuiltCallConfig.oneOnOneCall(
             isVideo: true,
-            onOnlySelfInRoom: () {
+            onOnlySelfInRoom: (context) {
                Navigator.of(context).pop();
             },
          );
@@ -78,7 +78,7 @@ Now, you can invite someone to the call by simply clicking this button.
 ```dart
 @override
 Widget build(BuildContext context) {
-   return ZegoUIKitPrebuiltCallWithInvitation(
+   return ZegoUIKitPrebuiltCallInvitationService(
       appID: yourAppID,
       appSign: yourAppSign,
       userID: userID,

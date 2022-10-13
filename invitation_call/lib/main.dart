@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:zego_uikit_signal_plugin/zego_uikit_signal_plugin.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+import 'secret.dart';
 
 /// Note that the userID needs to be globally unique,
 final String localUserID = math.Random().nextInt(10000).toString();
@@ -38,11 +40,12 @@ class _CallPageState extends State<CallPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ZegoUIKitPrebuiltCallWithInvitation(
-      appID: /*input your AppID*/,
-      appSign: /*input your AppSign*/,
+    return ZegoUIKitPrebuiltCallInvitationService(
+      appID: YourSecret.appID /*input your AppID*/,
+      appSign: YourSecret.appSign /*input your AppSign*/,
       userID: localUserID,
       userName: "user_$localUserID",
+      plugins: [ZegoUIKitSignalingPlugin()],
       //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
         late ZegoUIKitPrebuiltCallConfig config;
@@ -57,10 +60,6 @@ class _CallPageState extends State<CallPage> {
           config = ZegoInvitationType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
-          config.onOnlySelfInRoom = () {
-            Navigator.of(context).pop();
-          };
         }
 
         return config;
@@ -119,7 +118,7 @@ class _CallPageState extends State<CallPage> {
       builder: (context, inviteeUserID, _) {
         var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
 
-        return ZegoSendCallInvitationButton(
+        return ZegoStartCallInvitationButton(
           isVideoCall: isVideoCall,
           invitees: invitees,
           iconSize: const Size(40, 40),
