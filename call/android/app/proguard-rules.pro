@@ -1,1 +1,3 @@
 -keep class **.zego.**  { *; }
+-keep class **.zego.zim.**  { *; }
+-keep class **.**.zego_zim.** { *; }

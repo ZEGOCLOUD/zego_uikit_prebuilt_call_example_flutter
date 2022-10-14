@@ -146,6 +146,24 @@ Need add app permissions, open ·your_project/ios/Runner/Info.plist·, add the f
 
 <img src="https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/permission_ios.png" width=800>
 
+#### Turn off some classes's confusion
+
+To prevent the ZEGO SDK public class names from being obfuscated, please complete the following steps:
+
+1. Create `proguard-rules.pro` file under [your_project > android > app] with content as show below:
+```
+-keep class **.zego.** { *; }
+-keep class **.zego.zim.**  { *; }
+-keep class **.**.zego_zim.** { *; }
+```
+
+2. Add the following config code to the release part of the `your_project/android/app/build.gradle` file.
+```
+proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+```
+
+![image](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/android_class_confusion.png)
+
 ### 2. Run & Debug
 
 Now you can simply click the **Run** or **Debug** button to build and run your App on your device.
