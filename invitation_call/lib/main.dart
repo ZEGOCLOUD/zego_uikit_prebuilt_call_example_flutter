@@ -21,21 +21,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: CallPage(isVideoCall: true));
+    return MaterialApp(home: CallInvitationPage());
   }
 }
 
-class CallPage extends StatefulWidget {
-  final bool isVideoCall;
-
-  const CallPage({Key? key, required this.isVideoCall}) : super(key: key);
-
-  @override
-  State<CallPage> createState() => _CallPageState();
-}
-
-class _CallPageState extends State<CallPage> {
-  TextEditingController inviteeUsersIDTextCtrl = TextEditingController();
+class CallInvitationPage extends StatelessWidget {
+  CallInvitationPage({Key? key}) : super(key: key);
+  final TextEditingController inviteeUsersIDTextCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,29 +37,23 @@ class _CallPageState extends State<CallPage> {
       userID: localUserID,
       userName: "user_$localUserID",
       plugins: [ZegoUIKitSignalingPlugin()],
-      //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
-        late ZegoUIKitPrebuiltCallConfig config;
+        var config = (data.invitees.length > 1)
+            ? ZegoInvitationType.videoCall == data.type
+                ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+                : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+            : ZegoInvitationType.videoCall == data.type
+                ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+                : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
 
-        if (data.invitees.length > 1) {
-          ///  group call
-          config = ZegoInvitationType.videoCall == data.type
-              ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
-              : ZegoUIKitPrebuiltCallConfig.groupVoiceCall();
-        } else {
-          ///  one on one call
-          config = ZegoInvitationType.videoCall == data.type
-              ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-              : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-        }
-
+        // Modify your custom configurations here.
         return config;
       },
-      child: body(context),
+      child: yourPage(context),
     );
   }
 
-  Widget body(BuildContext context) {
+  Widget yourPage(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(

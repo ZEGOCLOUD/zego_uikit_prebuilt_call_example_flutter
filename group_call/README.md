@@ -12,7 +12,7 @@
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_prebuilt_call: ^1.2.1 # Add this line
+  zego_uikit_prebuilt_call: ^1.2.3 # Add this line
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -103,8 +103,6 @@ To prevent the ZEGO SDK public class names from being obfuscated, please complet
 1. Create `proguard-rules.pro` file under [your_project > android > app] with content as show below:
 ```
 -keep class **.zego.** { *; }
--keep class **.zego.zim.**  { *; }
--keep class **.**.zego_zim.** { *; }
 ```
 
 2. Add the following config code to the release part of the `your_project/android/app/build.gradle` file.
@@ -126,4 +124,4 @@ Now you can simply click the **Run** or **Debug** button to build and run your A
 
 ## Resources
 
-[Complete Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_call_example/tree/master/basic_call/flutter)
+[Complete Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_call_example_flutter/tree/master/group_call)
