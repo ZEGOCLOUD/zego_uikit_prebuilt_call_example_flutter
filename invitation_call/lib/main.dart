@@ -4,6 +4,7 @@ import 'dart:math' as math;
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Package imports:
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -37,18 +38,6 @@ class CallInvitationPage extends StatelessWidget {
       userID: localUserID,
       userName: "user_$localUserID",
       plugins: [ZegoUIKitSignalingPlugin()],
-      requireConfig: (ZegoCallInvitationData data) {
-        var config = (data.invitees.length > 1)
-            ? ZegoInvitationType.videoCall == data.type
-                ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
-                : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
-            : ZegoInvitationType.videoCall == data.type
-                ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-                : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
-        // Modify your custom configurations here.
-        return config;
-      },
       child: yourPage(context),
     );
   }
@@ -108,6 +97,37 @@ class CallInvitationPage extends StatelessWidget {
           invitees: invitees,
           iconSize: const Size(40, 40),
           buttonSize: const Size(50, 50),
+          onPressed: (String code, String message, List<String> errorInvitees) {
+            if (errorInvitees.isNotEmpty) {
+              String userIDs = "";
+              for (int index = 0; index < errorInvitees.length; index++) {
+                if (index >= 5) {
+                  userIDs += '... ';
+                  break;
+                }
+
+                var userID = errorInvitees.elementAt(index);
+                userIDs += userID + ' ';
+              }
+              if (userIDs.isNotEmpty) {
+                userIDs = userIDs.substring(0, userIDs.length - 1);
+              }
+
+              var message = 'User doesn\'t exist or is offline: $userIDs';
+              if (code.isNotEmpty) {
+                message += ', code: $code, message:$message';
+              }
+              Fluttertoast.showToast(
+                msg: message,
+                gravity: ToastGravity.TOP,
+              );
+            } else if (code.isNotEmpty) {
+              Fluttertoast.showToast(
+                msg: 'code: $code, message:$message',
+                gravity: ToastGravity.TOP,
+              );
+            }
+          },
         );
       },
     );
