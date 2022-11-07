@@ -117,9 +117,17 @@ class CallInvitationPage extends StatelessWidget {
               if (code.isNotEmpty) {
                 message += ', code: $code, message:$message';
               }
-              showToast(message, context: context);
+              showToast(
+                message,
+                position: StyledToastPosition.top,
+                context: context,
+              );
             } else if (code.isNotEmpty) {
-              showToast('code: $code, message:$message', context: context);
+              showToast(
+                'code: $code, message:$message',
+                position: StyledToastPosition.top,
+                context: context,
+              );
             }
           },
         );
