@@ -4,7 +4,7 @@ import 'dart:math' as math;
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // Package imports:
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -117,15 +117,9 @@ class CallInvitationPage extends StatelessWidget {
               if (code.isNotEmpty) {
                 message += ', code: $code, message:$message';
               }
-              Fluttertoast.showToast(
-                msg: message,
-                gravity: ToastGravity.TOP,
-              );
+              showToast(message, context: context);
             } else if (code.isNotEmpty) {
-              Fluttertoast.showToast(
-                msg: 'code: $code, message:$message',
-                gravity: ToastGravity.TOP,
-              );
+              showToast('code: $code, message:$message', context: context);
             }
           },
         );
