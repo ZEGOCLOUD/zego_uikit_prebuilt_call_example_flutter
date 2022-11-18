@@ -32,7 +32,7 @@ class CallInvitationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ZegoUIKitPrebuiltCallInvitationService(
+    return ZegoUIKitPrebuiltCallWithInvitation(
       appID: /*input your AppID*/,
       appSign: /*input your AppSign*/,
       userID: localUserID,
