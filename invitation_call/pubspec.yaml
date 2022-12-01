@@ -36,8 +36,8 @@ dependencies:
   flutter_styled_toast: ^2.1.3
   flutter_screenutil: ^5.5.3+2
 
-  zego_uikit_prebuilt_call: ^1.2.11
-  zego_uikit_signaling_plugin: ^1.0.15
+  zego_uikit_prebuilt_call: ^1.2.12
+  zego_uikit_signaling_plugin: ^1.0.16
 
 dev_dependencies:
   flutter_test:
