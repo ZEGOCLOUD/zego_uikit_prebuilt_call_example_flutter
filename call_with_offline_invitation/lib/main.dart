@@ -14,17 +14,13 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 // Project imports:
-import 'secret.dart';
 
 // Package imports:
 
 /// Note that the userID needs to be globally unique,
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  ZegoUIKit().initLog().then((value) {
-    runApp(const MyApp());
-  });
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -74,8 +70,8 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
           valueListenable: showDeclineNotifier,
           builder: (context, showDeclineButton, _) {
             return ZegoUIKitPrebuiltCallWithInvitation(
-              appID: YourSecret.appID /*input your AppID*/,
-              appSign: YourSecret.appSign /*input your AppSign*/,
+              appID: /*input your AppID*/,
+              appSign: /*input your AppSign*/,
               userID: userID,
               userName: "user_$userID",
               showDeclineButton: showDeclineButton,
@@ -116,7 +112,7 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
                         true,
                         false,
                       ],
-                      (bool showDeclineButton) {
+                          (bool showDeclineButton) {
                         return Text(showDeclineButton ? "Show" : "Hide");
                       },
                     ),
@@ -176,8 +172,8 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
     );
   }
 
-  void onSendCallInvitationFinished(
-      String code, String message, List<String> errorInvitees) {
+  void onSendCallInvitationFinished(String code, String message,
+      List<String> errorInvitees) {
     if (errorInvitees.isNotEmpty) {
       String userIDs = "";
       for (int index = 0; index < errorInvitees.length; index++) {
@@ -261,11 +257,9 @@ Future<String> getUniqueUserId() async {
   return userID.substring(userID.length - 6);
 }
 
-Widget switchDropList<T>(
-  ValueNotifier<T> notifier,
-  List<T> itemValues,
-  Widget Function(T value) widgetBuilder,
-) {
+Widget switchDropList<T>(ValueNotifier<T> notifier,
+    List<T> itemValues,
+    Widget Function(T value) widgetBuilder,) {
   return ValueListenableBuilder<T>(
       valueListenable: notifier,
       builder: (context, value, _) {

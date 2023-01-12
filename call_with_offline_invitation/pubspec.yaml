@@ -37,10 +37,8 @@ dependencies:
   flutter_screenutil: ^5.5.3+2
   device_info_plus: ^3.2.3
 
-  zego_uikit_prebuilt_call: # ^1.4.0
-    path: ../../../zego_uikit_prebuilt_call
-  zego_uikit_signaling_plugin: # ^1.4.0
-    path: ../../../zego_uikit_signaling_plugin
+  zego_uikit_prebuilt_call: ^1.4.0
+  zego_uikit_signaling_plugin: ^1.4.0
 
 dev_dependencies:
   flutter_test:
