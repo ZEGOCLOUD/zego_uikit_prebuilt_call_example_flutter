@@ -36,7 +36,7 @@ dependencies:
 
   # import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
   flutter_screenutil: ^5.5.3+2
-  zego_uikit_prebuilt_call: ^1.2.14
+  zego_uikit_prebuilt_call: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +48,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

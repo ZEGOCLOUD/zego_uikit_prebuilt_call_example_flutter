@@ -4,9 +4,9 @@ import 'dart:math' as math;
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 // Package imports:
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
@@ -92,7 +92,7 @@ class CallInvitationPage extends StatelessWidget {
       builder: (context, inviteeUserID, _) {
         var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
 
-        return ZegoStartCallInvitationButton(
+        return ZegoSendCallInvitationButton(
           isVideoCall: isVideoCall,
           invitees: invitees,
           iconSize: const Size(40, 40),
