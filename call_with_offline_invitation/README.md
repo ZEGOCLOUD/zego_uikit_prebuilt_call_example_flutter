@@ -311,7 +311,7 @@ proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pr
 
 2. To use the notifications and build your app correctly, navigate to the Build Settings tab, and set the following build options for your target app.
 
-<img src="http://doc.oa.zego.im/Pics/ZegoUIKit/Flutter/ios_distribution.png" width=800>
+<img src="http://storage.oa.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/ios_distribution.png" width=800>
 Refer to and set the following build options:
 
 - In the **Runner** Target:
@@ -342,7 +342,7 @@ If you want to receive call invitation notifications, do the following:
 
 - iOS:
 
-<video poster="http://doc.oa.zego.im/Pics/ZegoUIKit/videos/how_to_enable_offline_call_invitation_ios.png" src="https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/callkit_zpns_config2.mov" width="80%" preload="auto" controls></video>
+<video poster="http://storage.oa.zego.im/sdk-doc/Pics/ZegoUIKit/videos/how_to_enable_offline_call_invitation_ios.png" src="https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/callkit_zpns_config2.mov" width="80%" preload="auto" controls></video>
 
 Resource may help: [Apple Developer](https://developer.apple.com)
 
@@ -365,7 +365,7 @@ implementation 'com.google.firebase:firebase-messaging:21.1.0'
 ![call_keep_xml.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/call/call_keep_xml.png)
 
 
-<video poster="http://doc.oa.zego.im/Pics/ZegoUIKit/videos/how_to_enable_offline_call_invitation_android.png" src="https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/callkit_zpns_config1.mov" width="80%" preload="auto" controls></video>
+<video poster="http://storage.oa.zego.im/sdk-doc/Pics/ZegoUIKit/videos/how_to_enable_offline_call_invitation_android.png" src="https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/callkit_zpns_config1.mov" width="80%" preload="auto" controls></video>
 
 Resource may help: [Firebase Console](https://console.firebase.google.com/)
 
