@@ -40,6 +40,7 @@ class CallInvitationPage extends StatelessWidget {
       userID: localUserID,
       userName: "user_$localUserID",
       plugins: [ZegoUIKitSignalingPlugin()],
+      notifyWhenAppRunningInBackgroundOrQuit: false,
       child: yourPage(context),
     );
   }

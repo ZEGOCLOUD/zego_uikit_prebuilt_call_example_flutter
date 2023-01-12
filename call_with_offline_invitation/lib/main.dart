@@ -112,7 +112,7 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
                         true,
                         false,
                       ],
-                          (bool showDeclineButton) {
+                      (bool showDeclineButton) {
                         return Text(showDeclineButton ? "Show" : "Hide");
                       },
                     ),
@@ -172,8 +172,8 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
     );
   }
 
-  void onSendCallInvitationFinished(String code, String message,
-      List<String> errorInvitees) {
+  void onSendCallInvitationFinished(
+      String code, String message, List<String> errorInvitees) {
     if (errorInvitees.isNotEmpty) {
       String userIDs = "";
       for (int index = 0; index < errorInvitees.length; index++) {
@@ -257,9 +257,11 @@ Future<String> getUniqueUserId() async {
   return userID.substring(userID.length - 6);
 }
 
-Widget switchDropList<T>(ValueNotifier<T> notifier,
-    List<T> itemValues,
-    Widget Function(T value) widgetBuilder,) {
+Widget switchDropList<T>(
+  ValueNotifier<T> notifier,
+  List<T> itemValues,
+  Widget Function(T value) widgetBuilder,
+) {
   return ValueListenableBuilder<T>(
       valueListenable: notifier,
       builder: (context, value, _) {
