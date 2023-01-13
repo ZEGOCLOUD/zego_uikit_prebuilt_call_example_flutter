@@ -15,8 +15,6 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 // Project imports:
 
-// Package imports:
-
 /// Note that the userID needs to be globally unique,
 
 void main() {

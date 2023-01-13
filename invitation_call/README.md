@@ -4,13 +4,10 @@
 
 ## Add ZegoUIKitPrebuiltCallWithInvitation as dependencies
 
-1. Edit your project's pubspec.yaml and add local project dependencies
+1. Run this command with Flutter:
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  zego_uikit_signaling_plugin: ^1.4.0 # Add this line
+```
+flutter pub add zego_uikit_signaling_plugin
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
