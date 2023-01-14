@@ -59,7 +59,7 @@ To finest-grained build a call app, you may try our [Video Call SDK](https://doc
 
 Watch the video as belowed:
 
-[![Watch the video](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/videos/How_to_build_video_call_using_Flutter.png)](https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/How_to_build_video_call_using_Flutter_.mp4)
+[![Watch the video](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/videos/How_to_build_video_call_using_Flutter.png)](https://www.youtube.com/watch?v=RowFWxNfQhc)
 
 
 ## Integrate the SDK
