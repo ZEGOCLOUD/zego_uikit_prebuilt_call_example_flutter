@@ -214,7 +214,7 @@ You can simply click the **Run** or **Debug** to run and test your App on your d
 dependencies:
   flutter:
     sdk: flutter
-  zego_uikit_prebuilt_call: ^1.2.0 # Add this line
+  zego_uikit_prebuilt_call: ^1.4.3 # Add this line
   zego_uikit_signaling_plugin: ^1.0.7 # Add this line
 ```
 
