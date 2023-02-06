@@ -40,6 +40,9 @@ dependencies:
   zego_uikit_prebuilt_call: ^1.4.3
   zego_uikit_signaling_plugin: ^1.4.0
 
+dependency_overrides:
+   zego_express_engine: '3.2.0+1'
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
