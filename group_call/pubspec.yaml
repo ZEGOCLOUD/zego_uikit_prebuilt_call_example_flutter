@@ -36,10 +36,9 @@ dependencies:
 
   # import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
   flutter_screenutil: ^5.5.3+2
-  zego_uikit_prebuilt_call: ^1.4.3
+  zego_uikit_prebuilt_call: ^2.0.0
 
-dependency_overrides:
-   zego_express_engine: '3.2.0+1'
+
 
 dev_dependencies:
   flutter_test:
