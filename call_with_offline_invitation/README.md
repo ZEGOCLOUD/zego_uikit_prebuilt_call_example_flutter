@@ -362,6 +362,21 @@ implementation 'com.google.firebase:firebase-messaging:21.1.0'
 
 Resource may help: [Firebase Console](https://console.firebase.google.com/)
 
+4. Check whether the local config is set up properly.
+- Download the [zego_check_android_offline_notification.py\|_blank](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_call_example_flutter/blob/master/call_with_offline_invitation/zego_check_android_offline_notification.py) to your project's root directory, and run the following command:
+
+```bash
+python3 zego_check_android_offline_notification.py
+```
+- You will see the following if everything goes well: 
+```
+✅ The google-service.json is in the right location.
+✅ The package name matches google-service.json.
+✅ The project level gradle file is ready.
+✅ The plugin config in the app-level gradle file is correct.
+✅ Firebase dependencies config in the app-level gradle file is correct.
+✅ Firebase-Messaging dependencies config in the app-level gradle file is correct.
+```
 
 ### 2. Run & Debug
 
