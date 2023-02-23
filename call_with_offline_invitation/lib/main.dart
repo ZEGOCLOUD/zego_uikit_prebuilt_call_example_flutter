@@ -1,9 +1,19 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  var cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
+  if (cacheUserID.isNotEmpty) {
+    currentUser.id = cacheUserID;
+    currentUser.name = 'user_$cacheUserID';
+  }
+
   runApp(const MyApp());
 }
 
@@ -14,9 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: routes,
-      initialRoute: PageRouteNames.login,
+      initialRoute:
+          currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
       color: Colors.red,
-      theme:  ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
     );
   }
 }

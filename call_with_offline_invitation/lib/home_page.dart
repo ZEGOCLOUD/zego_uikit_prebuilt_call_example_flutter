@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 
@@ -14,31 +15,67 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  String? localUserID;
-
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    localUserID = args[PageParam.localUserID] ?? '';
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ZegoUIKitPrebuiltCallWithInvitation(
-        appID: /*input your AppID*/,
-        appSign: /*input your AppSign*/,
-        userID: localUserID ?? '',
-        userName: "user_${localUserID ?? ''}",
-        notifyWhenAppRunningInBackgroundOrQuit: true,
-        isIOSSandboxEnvironment: false,
-        androidNotificationConfig: ZegoAndroidNotificationConfig(
-          channelID: "ZegoUIKit",
-          channelName: "Call Notifications",
-          sound: "zego_incoming",
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: ZegoUIKitPrebuiltCallWithInvitation(
+            appID: /*input your AppID*/,
+            appSign: /*input your AppSign*/,
+            userID: currentUser.id,
+            userName: currentUser.name,
+            notifyWhenAppRunningInBackgroundOrQuit: true,
+            isIOSSandboxEnvironment: false,
+            androidNotificationConfig: ZegoAndroidNotificationConfig(
+              channelID: "ZegoUIKit",
+              channelName: "Call Notifications",
+              sound: "zego_incoming",
+            ),
+            plugins: [ZegoUIKitSignalingPlugin()],
+            child: Stack(
+              children: [
+                const Positioned(
+                  top: 10,
+                  left: 10,
+                  right: 10,
+                  child: Text('Home Page', textAlign: TextAlign.center),
+                ),
+                Positioned(
+                  top: 20,
+                  right: 10,
+                  child: logoutButton(),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 10,
+                  child: Text('Your user ID: ${currentUser.id}'),
+                ),
+                userListView(),
+              ],
+            ),
+          ),
         ),
-        plugins: [ZegoUIKitSignalingPlugin()],
-        child: userListView(),
       ),
+    );
+  }
+
+  Widget logoutButton() {
+    return ElevatedButton(
+      child: const Text("Logout", style: textStyle),
+      onPressed: () async {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.remove(cacheUserIDKey);
+
+        Navigator.pushNamed(
+          context,
+          PageRouteNames.login,
+        );
+      },
     );
   }
 
@@ -65,9 +102,6 @@ class HomePageState extends State<HomePage> {
                   Navigator.pushNamed(
                     context,
                     PageRouteNames.call,
-                    arguments: <String, String>{
-                      PageParam.localUserID: localUserID ?? '',
-                    },
                   );
                 },
               ),

@@ -18,40 +18,52 @@ class CallPage extends StatefulWidget {
 }
 
 class _CallPageState extends State<CallPage> {
-  String? localUserID;
-
   final TextEditingController inviteeUsersIDTextCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    localUserID = args[PageParam.localUserID] ?? '';
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
         child: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          body: Stack(
             children: [
-              Text('Your user ID: $localUserID'),
-              Row(
+              Positioned(
+                top: 10,
+                left: 10,
+                child: backButton(),
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 10),
-                  inviteeUserIDInput(),
-                  const SizedBox(width: 5),
-                  callButton(false),
-                  const SizedBox(width: 5),
-                  callButton(true),
-                  const SizedBox(width: 10),
+                  Text('Your user ID: ${currentUser.id}'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 10),
+                      inviteeUserIDInput(),
+                      const SizedBox(width: 5),
+                      callButton(false),
+                      const SizedBox(width: 5),
+                      callButton(true),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
                 ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget backButton() {
+    return ElevatedButton(
+      child: const Text("Back", style: textStyle),
+      onPressed: () async {
+        Navigator.pop(context);
+      },
     );
   }
 

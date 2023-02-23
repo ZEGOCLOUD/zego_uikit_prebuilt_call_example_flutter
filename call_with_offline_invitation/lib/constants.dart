@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
@@ -27,3 +26,20 @@ Map<String, WidgetBuilder> routes = {
   PageRouteNames.home: (context) => const HomePage(),
   PageRouteNames.call: (context) => const CallPage(),
 };
+
+class UserInfo {
+  String id = '';
+  String name = '';
+
+  UserInfo({
+    required this.id,
+    required this.name,
+  });
+
+  bool get isEmpty => id.isEmpty;
+
+  UserInfo.empty();
+}
+
+UserInfo currentUser = UserInfo.empty();
+const String cacheUserIDKey = "cache_user_id_key";
