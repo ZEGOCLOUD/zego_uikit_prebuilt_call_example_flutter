@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Project imports:
-import 'constants.dart';
-import 'util.dart';
+import 'package:group_call/constants.dart';
+import 'package:group_call/util.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  var userIDNotifier = ValueNotifier<String>("");
+  var userIDNotifier = ValueNotifier<String>('');
 
   @override
   void initState() {
@@ -42,7 +42,6 @@ class LoginPageState extends State<LoginPage> {
               children: [
                 Expanded(child: Container()),
                 ElevatedButton(
-                  child: const Text("Login", style: textStyle),
                   onPressed: userID.isEmpty
                       ? null
                       : () async {
@@ -57,6 +56,7 @@ class LoginPageState extends State<LoginPage> {
                             PageRouteNames.home,
                           );
                         },
+                  child: const Text('Login', style: textStyle),
                 ),
                 Expanded(child: Container()),
               ],

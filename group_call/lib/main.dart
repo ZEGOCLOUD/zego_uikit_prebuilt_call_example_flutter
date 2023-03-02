@@ -1,17 +1,26 @@
-// Dart imports:
-import 'dart:math' as math;
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
-/// Note that the userID needs to be globally unique,
-final String localUserID = math.Random().nextInt(10000).toString();
+// Project imports:
+import 'package:group_call/constants.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
+  if (cacheUserID.isNotEmpty) {
+    currentUser.id = cacheUserID;
+    currentUser.name = 'user_$cacheUserID';
+  }
+
+  ZegoUIKit().initLog().then((value) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -19,70 +28,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: GroupCallPage());
-  }
-}
-
-class GroupCallPage extends StatelessWidget {
-  /// Users who use the same callID can in the same call.
-  final callIDTextCtrl = TextEditingController(text: "group_call_id");
-
-  GroupCallPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: callIDTextCtrl,
-                  decoration: const InputDecoration(
-                      labelText: "join a group call by id"),
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return CallPage(callID: callIDTextCtrl.text);
-                      }),
-                    );
-                  },
-                  child: const Text("join"))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CallPage extends StatelessWidget {
-  final String callID;
-
-  const CallPage({
-    Key? key,
-    required this.callID,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: ZegoUIKitPrebuiltCall(
-        appID: /*input your AppID*/,
-        appSign: /*input your AppSign*/,
-        userID: localUserID,
-        userName: "user_$localUserID",
-        callID: callID,
-        config: ZegoUIKitPrebuiltCallConfig.groupVideoCall(),
-      ),
+    return MaterialApp(
+      routes: routes,
+      initialRoute:
+          currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
+      color: Colors.red,
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
     );
   }
 }

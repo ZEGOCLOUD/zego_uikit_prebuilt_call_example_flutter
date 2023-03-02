@@ -1,7 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+// Package imports:
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+
+// Project imports:
 import 'constants.dart';
 
 void main() async {
@@ -14,7 +18,9 @@ void main() async {
     currentUser.name = 'user_$cacheUserID';
   }
 
-  runApp(const MyApp());
+  ZegoUIKit().initLog().then((value) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

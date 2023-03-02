@@ -1,4 +1,6 @@
 // Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,7 +9,7 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 // Project imports:
-import 'constants.dart';
+import 'package:call_with_invitation/constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,13 +36,7 @@ class HomePageState extends State<HomePage> {
             appSign: yourAppSign /*input your AppSign*/,
             userID: currentUser.id,
             userName: currentUser.name,
-            notifyWhenAppRunningInBackgroundOrQuit: true,
-            isIOSSandboxEnvironment: false,
-            androidNotificationConfig: ZegoAndroidNotificationConfig(
-              channelID: "ZegoUIKit",
-              channelName: "Call Notifications",
-              sound: "zego_incoming",
-            ),
+            notifyWhenAppRunningInBackgroundOrQuit: false,
             plugins: [ZegoUIKitSignalingPlugin()],
             child: Stack(
               children: [
@@ -71,7 +67,7 @@ class HomePageState extends State<HomePage> {
 
   Widget logoutButton() {
     return ElevatedButton(
-      child: const Text("Logout", style: textStyle),
+      child: const Text('Logout', style: textStyle),
       onPressed: () async {
         final prefs = await SharedPreferences.getInstance();
         prefs.remove(cacheUserIDKey);
@@ -91,14 +87,14 @@ class HomePageState extends State<HomePage> {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 10,
         itemBuilder: (context, index) {
-          final userName = "User $index";
+          final userName = 'User $index';
           return Row(
             children: [
               const SizedBox(width: 20),
               Text(userName, style: textStyle),
               Expanded(child: Container()),
               ElevatedButton(
-                child: const Text("Details", style: textStyle),
+                child: const Text('Details', style: textStyle),
                 onPressed: () {
                   /// WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                   /// Don't user pushReplacementNamed,

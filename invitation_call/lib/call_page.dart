@@ -1,4 +1,6 @@
 // Flutter imports:
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,7 +9,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
-import 'constants.dart';
+import 'package:call_with_invitation/constants.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({
@@ -37,16 +39,16 @@ class _CallPageState extends State<CallPage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Your user ID: ${currentUser.id}'),
+                  Text('Your userID: $localUserID'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(width: 10),
                       inviteeUserIDInput(),
                       const SizedBox(width: 5),
-                      callButton(false),
+                      callButton(isVideoCall: false),
                       const SizedBox(width: 5),
-                      callButton(true),
+                      callButton(isVideoCall: true),
                       const SizedBox(width: 10),
                     ],
                   ),
@@ -61,27 +63,9 @@ class _CallPageState extends State<CallPage> {
 
   Widget backButton() {
     return ElevatedButton(
-      child: const Text("Back", style: textStyle),
+      child: const Text('Back', style: textStyle),
       onPressed: () async {
         Navigator.pop(context);
-      },
-    );
-  }
-
-  Widget callButton(bool isVideoCall) {
-    return ValueListenableBuilder<TextEditingValue>(
-      valueListenable: inviteeUsersIDTextCtrl,
-      builder: (context, inviteeUserID, _) {
-        var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
-
-        return ZegoSendCallInvitationButton(
-          isVideoCall: isVideoCall,
-          invitees: invitees,
-          resourceID: "zegouikit_call",
-          iconSize: const Size(40, 40),
-          buttonSize: const Size(50, 50),
-          onPressed: onSendCallInvitationFinished,
-        );
       },
     );
   }
@@ -95,56 +79,67 @@ class _CallPageState extends State<CallPage> {
         ],
         decoration: const InputDecoration(
           isDense: true,
-          hintText: "Please Enter Invitees ID",
+          hintText: 'Please Enter Invitees ID',
           labelText: "Invitees ID, Separate ids by ','",
         ),
       ),
     );
   }
 
-  void onSendCallInvitationFinished(
-    String code,
-    String message,
-    List<String> errorInvitees,
-  ) {
-    if (errorInvitees.isNotEmpty) {
-      String userIDs = "";
-      for (int index = 0; index < errorInvitees.length; index++) {
-        if (index >= 5) {
-          userIDs += '... ';
-          break;
-        }
+  Widget callButton({required bool isVideoCall}) {
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: inviteeUsersIDTextCtrl,
+      builder: (context, inviteeUserID, _) {
+        final invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
 
-        var userID = errorInvitees.elementAt(index);
-        userIDs += userID + ' ';
-      }
-      if (userIDs.isNotEmpty) {
-        userIDs = userIDs.substring(0, userIDs.length - 1);
-      }
+        return ZegoSendCallInvitationButton(
+          isVideoCall: isVideoCall,
+          invitees: invitees,
+          iconSize: const Size(40, 40),
+          buttonSize: const Size(50, 50),
+          onPressed: (String code, String message, List<String> errorInvitees) {
+            if (errorInvitees.isNotEmpty) {
+              var userIDs = '';
+              for (var index = 0; index < errorInvitees.length; index++) {
+                if (index >= 5) {
+                  userIDs += '... ';
+                  break;
+                }
 
-      var message = 'User doesn\'t exist or is offline: $userIDs';
-      if (code.isNotEmpty) {
-        message += ', code: $code, message:$message';
-      }
-      showToast(
-        message,
-        position: StyledToastPosition.top,
-        context: context,
-      );
-    } else if (code.isNotEmpty) {
-      showToast(
-        'code: $code, message:$message',
-        position: StyledToastPosition.top,
-        context: context,
-      );
-    }
+                final userID = errorInvitees.elementAt(index);
+                userIDs += '$userID ';
+              }
+              if (userIDs.isNotEmpty) {
+                userIDs = userIDs.substring(0, userIDs.length - 1);
+              }
+
+              var message = "User doesn't exist or is offline: $userIDs";
+              if (code.isNotEmpty) {
+                message += ', code: $code, message:$message';
+              }
+              showToast(
+                message,
+                position: StyledToastPosition.top,
+                context: context,
+              );
+            } else if (code.isNotEmpty) {
+              showToast(
+                'code: $code, message:$message',
+                position: StyledToastPosition.top,
+                context: context,
+              );
+            }
+          },
+        );
+      },
+    );
   }
 
   List<ZegoUIKitUser> getInvitesFromTextCtrl(String textCtrlText) {
-    List<ZegoUIKitUser> invitees = [];
+    final invitees = <ZegoUIKitUser>[];
 
-    var inviteeIDs = textCtrlText.trim().replaceAll('，', '');
-    inviteeIDs.split(",").forEach((inviteeUserID) {
+    final inviteeIDs = textCtrlText.trim().replaceAll('，', '');
+    inviteeIDs.split(',').forEach((inviteeUserID) {
       if (inviteeUserID.isEmpty) {
         return;
       }
