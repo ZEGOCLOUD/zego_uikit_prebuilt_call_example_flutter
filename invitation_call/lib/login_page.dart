@@ -1,14 +1,10 @@
 // Flutter imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
-
 // Project imports:
-import 'package:call_with_invitation/constants.dart';
-import 'package:call_with_invitation/util.dart';
+import 'constants.dart';
+import 'login_service.dart';
+import 'util.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,16 +43,15 @@ class LoginPageState extends State<LoginPage> {
                   onPressed: userID.isEmpty
                       ? null
                       : () async {
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setString(cacheUserIDKey, userID);
+                          login(userID: userID, userName: 'user_$userID')
+                              .then((value) {
+                            onUserLogin();
 
-                          currentUser.id = userID;
-                          currentUser.name = 'user_$userID';
-
-                          Navigator.pushNamed(
-                            context,
-                            PageRouteNames.home,
-                          );
+                            Navigator.pushNamed(
+                              context,
+                              PageRouteNames.home,
+                            );
+                          });
                         },
                   child: const Text('Login', style: textStyle),
                 ),

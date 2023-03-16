@@ -2,12 +2,12 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:crypto/crypto.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
 
 Future<String> getUniqueUserId() async {
   String? deviceID;

@@ -11,29 +11,29 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 Future<String> getUniqueUserId() async {
   String? deviceID;
-  var deviceInfo = DeviceInfoPlugin();
+  final deviceInfo = DeviceInfoPlugin();
   if (Platform.isIOS) {
-    var iosDeviceInfo = await deviceInfo.iosInfo;
+    final iosDeviceInfo = await deviceInfo.iosInfo;
     deviceID = iosDeviceInfo.identifierForVendor; // unique ID on iOS
   } else if (Platform.isAndroid) {
-    var androidDeviceInfo = await deviceInfo.androidInfo;
+    final androidDeviceInfo = await deviceInfo.androidInfo;
     deviceID = androidDeviceInfo.androidId; // unique ID on Android
   }
 
   if (deviceID != null && deviceID.length < 4) {
     if (Platform.isAndroid) {
-      deviceID += "_android";
+      deviceID += '_android';
     } else if (Platform.isIOS) {
-      deviceID += "_ios___";
+      deviceID += '_ios___';
     }
   }
   if (Platform.isAndroid) {
-    deviceID ??= "flutter_user_id_android";
+    deviceID ??= 'flutter_user_id_android';
   } else if (Platform.isIOS) {
-    deviceID ??= "flutter_user_id_ios";
+    deviceID ??= 'flutter_user_id_ios';
   }
 
-  var userID = md5
+  final userID = md5
       .convert(utf8.encode(deviceID!))
       .toString()
       .replaceAll(RegExp(r'[^0-9]'), '');

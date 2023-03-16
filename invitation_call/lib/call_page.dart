@@ -1,6 +1,4 @@
 // Flutter imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,7 +7,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
-import 'package:call_with_invitation/constants.dart';
+import 'constants.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({
@@ -39,7 +37,7 @@ class _CallPageState extends State<CallPage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Your userID: $localUserID'),
+                  Text('Your userID: ${currentUser.id}'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

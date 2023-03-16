@@ -1,11 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
-
 // Project imports:
 import 'constants.dart';
+import 'login_service.dart';
 import 'util.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,7 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
-  var userIDNotifier = ValueNotifier<String>("");
+  var userIDNotifier = ValueNotifier<String>('');
 
   @override
   void initState() {
@@ -42,21 +40,20 @@ class LoginPageState extends State<LoginPage> {
               children: [
                 Expanded(child: Container()),
                 ElevatedButton(
-                  child: const Text("Login", style: textStyle),
                   onPressed: userID.isEmpty
                       ? null
                       : () async {
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setString(cacheUserIDKey, userID);
+                          login(userID: userID, userName: 'user_$userID')
+                              .then((value) {
+                            onUserLogin();
 
-                          currentUser.id = userID;
-                          currentUser.name = 'user_$userID';
-
-                          Navigator.pushNamed(
-                            context,
-                            PageRouteNames.home,
-                          );
+                            Navigator.pushNamed(
+                              context,
+                              PageRouteNames.home,
+                            );
+                          });
                         },
+                  child: const Text('Login', style: textStyle),
                 ),
                 Expanded(child: Container()),
               ],

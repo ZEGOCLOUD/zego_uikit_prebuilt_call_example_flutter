@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:call/constants.dart';
+import 'constants.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({Key? key}) : super(key: key);

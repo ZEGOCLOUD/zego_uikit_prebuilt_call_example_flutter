@@ -7,10 +7,16 @@ import 'home_page.dart';
 import 'login_page.dart';
 
 class PageRouteNames {
-  static const String login = "/login";
-  static const String home = "/home_page";
-  static const String call = "/call";
+  static const String login = '/login';
+  static const String home = '/home_page';
+  static const String call = '/call';
 }
+
+const TextStyle textStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 13.0,
+  decoration: TextDecoration.none,
+);
 
 Map<String, WidgetBuilder> routes = {
   PageRouteNames.login: (context) => const LoginPage(),
@@ -33,10 +39,4 @@ class UserInfo {
 }
 
 UserInfo currentUser = UserInfo.empty();
-const String cacheUserIDKey = "cache_user_id_key";
-
-const TextStyle textStyle = TextStyle(
-  color: Colors.black,
-  fontSize: 13.0,
-  decoration: TextDecoration.none,
-);
+const String cacheUserIDKey = 'cache_user_id_key';

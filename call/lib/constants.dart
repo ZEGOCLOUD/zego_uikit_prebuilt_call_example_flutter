@@ -5,10 +5,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:call/call_page.dart';
-import 'package:call/home_page.dart';
-import 'package:call/login_page.dart';
-import 'package:call/prebuilt_call_page.dart';
+import 'call_page.dart';
+import 'home_page.dart';
+import 'login_page.dart';
+import 'prebuilt_call_page.dart';
 
 class PageRouteNames {
   static const String login = '/login';
