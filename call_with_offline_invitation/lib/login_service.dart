@@ -30,7 +30,13 @@ void onUserLogin() {
     appSign: yourAppSign /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-    notifyWhenAppRunningInBackgroundOrQuit: false,
+    notifyWhenAppRunningInBackgroundOrQuit: true,
+    isIOSSandboxEnvironment: false,
+    androidNotificationConfig: ZegoAndroidNotificationConfig(
+      channelID: "ZegoUIKit",
+      channelName: "Call Notifications",
+      sound: "zego_incoming",
+    ),
     plugins: [ZegoUIKitSignalingPlugin()],
   );
 }
