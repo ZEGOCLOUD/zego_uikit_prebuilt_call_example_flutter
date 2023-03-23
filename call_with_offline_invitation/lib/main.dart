@@ -13,20 +13,76 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
-// Project imports:
 
 /// Note that the userID needs to be globally unique,
+String localUserID = '';
 
-void main() {
-  runApp(const MyApp());
+/// on user login
+void onUserLogin() {
+  /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
+  ZegoUIKitPrebuiltCallInvitationService().init(
+    appID: YourSecret.appID /*input your AppID*/,
+    appSign: YourSecret.appSign /*input your AppSign*/,
+    userID: localUserID,
+    userName: "user_$localUserID",
+    notifyWhenAppRunningInBackgroundOrQuit: true,
+    isIOSSandboxEnvironment: false,
+    androidNotificationConfig: ZegoAndroidNotificationConfig(
+      channelID: "ZegoUIKit",
+      channelName: "Call Notifications",
+      sound: "zego_incoming",
+    ),
+    plugins: [ZegoUIKitSignalingPlugin()],
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+/// on user logout
+void onUserLogout() {
+  /// 5/5. de-initialization ZegoUIKitPrebuiltCallInvitationService when account is logged out
+  ZegoUIKitPrebuiltCallInvitationService().uninit();
+}
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// 1/5: define a navigator key
+  final navigatorKey = GlobalKey<NavigatorState>();
+
+  /// 2/5: set navigator key to ZegoUIKitPrebuiltCallInvitationService
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
+  getUniqueUserId().then((userID) {
+    localUserID = userID;
+    onUserLogin();
+
+    ZegoUIKit().initLog().then((value) {
+      runApp(MyApp(navigatorKey: navigatorKey));
+    });
+  });
+
+  onUserLogout();
+}
+
+class MyApp extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const MyApp({
+    required this.navigatorKey,
+    Key? key,
+  }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: CallInvitationPage());
+    return MaterialApp(
+      /// 3/5: register the navigator key to MaterialApp
+    navigatorKey: widget.navigatorKey,
+      home: const CallInvitationPage(),
+    );
   }
 }
 
@@ -40,56 +96,17 @@ class CallInvitationPage extends StatefulWidget {
 }
 
 class _CallInvitationPageState extends State<CallInvitationPage> {
-  var userIDNotifier = ValueNotifier<String>("");
   bool isChatEnabled = true;
   bool isUpdatingRoomProperty = false;
   final TextEditingController inviteeUsersIDTextCtrl = TextEditingController();
-  final showDeclineNotifier = ValueNotifier<bool>(true);
 
   @override
   void initState() {
     super.initState();
-
-    getUniqueUserId().then((userID) {
-      userIDNotifier.value = userID;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<String>(
-      valueListenable: userIDNotifier,
-      builder: (context, userID, _) {
-        if (userID.isEmpty) {
-          return Container();
-        }
-
-        return ValueListenableBuilder<bool>(
-          valueListenable: showDeclineNotifier,
-          builder: (context, showDeclineButton, _) {
-            return ZegoUIKitPrebuiltCallWithInvitation(
-              appID: /*input your AppID*/,
-              appSign: /*input your AppSign*/,
-              userID: userID,
-              userName: "user_$userID",
-              showDeclineButton: showDeclineButton,
-              notifyWhenAppRunningInBackgroundOrQuit: true,
-              isIOSSandboxEnvironment: false,
-              androidNotificationConfig: ZegoAndroidNotificationConfig(
-                channelID: "ZegoUIKit",
-                channelName: "Call Notifications",
-                sound: "zego_incoming",
-              ),
-              plugins: [ZegoUIKitSignalingPlugin()],
-              child: yourPage(context),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  Widget yourPage(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
@@ -97,26 +114,7 @@ class _CallInvitationPageState extends State<CallInvitationPage> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Your userID: ${userIDNotifier.value}'),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text("Show Decline : "),
-                    switchDropList<bool>(
-                      showDeclineNotifier,
-                      [
-                        true,
-                        false,
-                      ],
-                      (bool showDeclineButton) {
-                        return Text(showDeclineButton ? "Show" : "Hide");
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              Text('Your userID: $localUserID'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -253,30 +251,4 @@ Future<String> getUniqueUserId() async {
       .toString()
       .replaceAll(RegExp(r'[^0-9]'), '');
   return userID.substring(userID.length - 6);
-}
-
-Widget switchDropList<T>(
-  ValueNotifier<T> notifier,
-  List<T> itemValues,
-  Widget Function(T value) widgetBuilder,
-) {
-  return ValueListenableBuilder<T>(
-      valueListenable: notifier,
-      builder: (context, value, _) {
-        return DropdownButton<T>(
-          value: value,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: itemValues.map((T itemValue) {
-            return DropdownMenuItem(
-              value: itemValue,
-              child: widgetBuilder(itemValue),
-            );
-          }).toList(),
-          onChanged: (T? newValue) {
-            if (newValue != null) {
-              notifier.value = newValue;
-            }
-          },
-        );
-      });
 }

@@ -1,30 +1,81 @@
 // Dart imports:
-import 'dart:math' as math;
+import 'dart:convert';
+import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
+import 'package:crypto/crypto.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
-// Project imports:
-
 /// Note that the userID needs to be globally unique,
-final String localUserID = math.Random().nextInt(10000).toString();
+String localUserID = '';
 
-void main() {
-  runApp(const MyApp());
+/// on user login
+void onUserLogin() {
+  /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
+  ZegoUIKitPrebuiltCallInvitationService().init(
+    appID: YourSecret.appID /*input your AppID*/,
+    appSign: YourSecret.appSign /*input your AppSign*/,
+    userID: localUserID,
+    userName: "user_$localUserID",
+    notifyWhenAppRunningInBackgroundOrQuit: false,
+    plugins: [ZegoUIKitSignalingPlugin()],
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+/// on user logout
+void onUserLogout() {
+  /// 5/5. de-initialization ZegoUIKitPrebuiltCallInvitationService when account is logged out
+  ZegoUIKitPrebuiltCallInvitationService().uninit();
+}
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// 1/5: define a navigator key
+  final navigatorKey = GlobalKey<NavigatorState>();
+
+  /// 2/5: set navigator key to ZegoUIKitPrebuiltCallInvitationService
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
+  getUniqueUserId().then((userID) {
+    localUserID = userID;
+    onUserLogin();
+
+    ZegoUIKit().initLog().then((value) {
+      runApp(MyApp(navigatorKey: navigatorKey));
+    });
+  });
+
+  onUserLogout();
+}
+
+class MyApp extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const MyApp({
+    required this.navigatorKey,
+    Key? key,
+  }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CallInvitationPage());
+    return MaterialApp(
+      /// 3/5: register the navigator key to MaterialApp
+      navigatorKey: widget.navigatorKey,
+      home: CallInvitationPage(),
+    );
   }
 }
 
@@ -34,18 +85,6 @@ class CallInvitationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ZegoUIKitPrebuiltCallWithInvitation(
-      appID: /*input your AppID*/,
-      appSign: /*input your AppSign*/,
-      userID: localUserID,
-      userName: "user_$localUserID",
-      plugins: [ZegoUIKitSignalingPlugin()],
-      notifyWhenAppRunningInBackgroundOrQuit: false,
-      child: yourPage(context),
-    );
-  }
-
-  Widget yourPage(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
@@ -155,4 +194,35 @@ class CallInvitationPage extends StatelessWidget {
 
     return invitees;
   }
+}
+
+Future<String> getUniqueUserId() async {
+  String? deviceID;
+  var deviceInfo = DeviceInfoPlugin();
+  if (Platform.isIOS) {
+    var iosDeviceInfo = await deviceInfo.iosInfo;
+    deviceID = iosDeviceInfo.identifierForVendor; // unique ID on iOS
+  } else if (Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    deviceID = androidDeviceInfo.androidId; // unique ID on Android
+  }
+
+  if (deviceID != null && deviceID.length < 4) {
+    if (Platform.isAndroid) {
+      deviceID += "_android";
+    } else if (Platform.isIOS) {
+      deviceID += "_ios___";
+    }
+  }
+  if (Platform.isAndroid) {
+    deviceID ??= "flutter_user_id_android";
+  } else if (Platform.isIOS) {
+    deviceID ??= "flutter_user_id_ios";
+  }
+
+  var userID = md5
+      .convert(utf8.encode(deviceID!))
+      .toString()
+      .replaceAll(RegExp(r'[^0-9]'), '');
+  return userID.substring(userID.length - 6);
 }
