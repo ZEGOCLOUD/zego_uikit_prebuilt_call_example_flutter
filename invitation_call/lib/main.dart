@@ -56,13 +56,26 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: routes,
+      initialRoute:
+          currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
 
       /// 3/5: register the navigator key to MaterialApp
       navigatorKey: widget.navigatorKey,
-      initialRoute:
-          currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
-      color: Colors.red,
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+      builder: (BuildContext context, Widget? child) {
+        return Stack(
+          children: [
+            child!,
+
+            /// support minimizing
+            ZegoMiniOverlayPage(
+              contextQuery: () {
+                return widget.navigatorKey.currentState!.context;
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

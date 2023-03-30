@@ -1,11 +1,11 @@
 // Flutter imports:
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
 // Project imports:
 import 'package:call_with_invitation/constants.dart';
-
-// Flutter imports:
 import 'package:call_with_invitation/login_service.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

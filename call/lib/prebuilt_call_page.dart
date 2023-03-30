@@ -1,6 +1,4 @@
 // Flutter imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -31,8 +29,21 @@ class PrebuiltCallPageState extends State<PrebuiltCallPage> {
         userName: currentUser.name,
         callID: callID,
         config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+
+          /// support minimizing
+          ..topMenuBarConfig.isVisible = true
+          ..topMenuBarConfig.buttons = [
+            ZegoMenuBarButtonName.minimizingButton,
+            ZegoMenuBarButtonName.showMemberListButton,
+          ]
+
+          ///
           ..onOnlySelfInRoom = (context) {
-            Navigator.of(context).pop();
+            if (MiniOverlayPageState.idle != ZegoMiniOverlayMachine().state()) {
+              ZegoMiniOverlayMachine().changeState(MiniOverlayPageState.idle);
+            } else {
+              Navigator.of(context).pop();
+            }
           },
       ),
     );

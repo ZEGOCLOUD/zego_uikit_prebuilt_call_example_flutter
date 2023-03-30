@@ -18,22 +18,49 @@ void main() async {
     currentUser.name = 'user_$cacheUserID';
   }
 
+  final navigatorKey = GlobalKey<NavigatorState>();
   ZegoUIKit().initLog().then((value) {
-    runApp(const MyApp());
+    runApp(MyApp(
+      navigatorKey: navigatorKey,
+    ));
   });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  final GlobalKey<NavigatorState> navigatorKey;
 
+  const MyApp({
+    required this.navigatorKey,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: routes,
       initialRoute:
           currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
-      color: Colors.red,
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+      navigatorKey: widget.navigatorKey,
+      builder: (BuildContext context, Widget? child) {
+        return Stack(
+          children: [
+            child!,
+
+            /// support minimizing
+            ZegoMiniOverlayPage(
+              contextQuery: () {
+                return widget.navigatorKey.currentState!.context;
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

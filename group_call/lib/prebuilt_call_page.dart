@@ -30,7 +30,14 @@ class PrebuiltCallPageState extends State<PrebuiltCallPage> {
         userID: currentUser.id,
         userName: currentUser.name,
         callID: callID,
-        config: ZegoUIKitPrebuiltCallConfig.groupVideoCall(),
+        config: ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+
+          /// support minimizing
+          ..topMenuBarConfig.isVisible = true
+          ..topMenuBarConfig.buttons = [
+            ZegoMenuBarButtonName.minimizingButton,
+            ZegoMenuBarButtonName.showMemberListButton,
+          ],
       ),
     );
   }
