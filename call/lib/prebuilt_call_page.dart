@@ -39,8 +39,10 @@ class PrebuiltCallPageState extends State<PrebuiltCallPage> {
 
           ///
           ..onOnlySelfInRoom = (context) {
-            if (MiniOverlayPageState.idle != ZegoMiniOverlayMachine().state()) {
-              ZegoMiniOverlayMachine().changeState(MiniOverlayPageState.idle);
+            if (PrebuiltCallMiniOverlayPageState.idle !=
+                ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
+              ZegoUIKitPrebuiltCallMiniOverlayMachine()
+                  .changeState(PrebuiltCallMiniOverlayPageState.idle);
             } else {
               Navigator.of(context).pop();
             }

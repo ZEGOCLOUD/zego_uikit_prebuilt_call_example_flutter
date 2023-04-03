@@ -53,7 +53,7 @@ class MyAppState extends State<MyApp> {
             child!,
 
             /// support minimizing
-            ZegoMiniOverlayPage(
+            ZegoUIKitPrebuiltCallMiniOverlayPage(
               contextQuery: () {
                 return widget.navigatorKey.currentState!.context;
               },

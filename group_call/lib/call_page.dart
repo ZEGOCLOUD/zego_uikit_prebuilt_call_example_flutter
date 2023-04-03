@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
 import 'constants.dart';
@@ -49,16 +49,24 @@ class CallPageState extends State<CallPage> {
                         ),
                       ),
                       ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              PageRouteNames.prebuilt_call,
-                              arguments: <String, String>{
-                                PageParam.call_id: callIDTextCtrl.text,
-                              },
-                            );
-                          },
-                          child: const Text('join'))
+                        onPressed: () {
+                          if (ZegoUIKitPrebuiltCallMiniOverlayMachine()
+                              .isMinimizing) {
+                            /// when the application is minimized (in a minimized state),
+                            /// disable button clicks to prevent multiple PrebuiltCall components from being created.
+                            return;
+                          }
+
+                          Navigator.pushNamed(
+                            context,
+                            PageRouteNames.prebuilt_call,
+                            arguments: <String, String>{
+                              PageParam.call_id: callIDTextCtrl.text,
+                            },
+                          );
+                        },
+                        child: const Text('join'),
+                      ),
                     ],
                   ),
                 ),
