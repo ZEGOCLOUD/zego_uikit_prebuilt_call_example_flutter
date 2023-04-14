@@ -2,6 +2,7 @@
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
 import 'package:call_with_invitation/constants.dart';
@@ -14,7 +15,27 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    ZegoUIKitPrebuiltCallInvitationService()
+        .didChangeAppLifecycleState(state != AppLifecycleState.resumed);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
