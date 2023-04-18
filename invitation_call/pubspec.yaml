@@ -17,7 +17,7 @@ dependencies:
   device_info_plus: ^3.2.3
   shared_preferences: 2.0.8
 
-  zego_uikit_prebuilt_call: ^3.2.0
+  zego_uikit_prebuilt_call: ^3.3.3
   zego_uikit_signaling_plugin: ^2.1.0
 
 dev_dependencies:

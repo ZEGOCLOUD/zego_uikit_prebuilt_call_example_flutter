@@ -13,26 +13,7 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    ZegoUIKitPrebuiltCallInvitationService()
-        .didChangeAppLifecycleState(state != AppLifecycleState.resumed);
-  }
+class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
