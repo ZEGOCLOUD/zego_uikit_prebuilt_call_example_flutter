@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
 import 'constants.dart';
@@ -15,6 +16,9 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  /// Users who use the same callID can in the same call.
+  final callIDTextCtrl = TextEditingController(text: 'call_id');
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,12 +30,6 @@ class HomePageState extends State<HomePage> {
           },
           child: Stack(
             children: [
-              const Positioned(
-                top: 10,
-                left: 10,
-                right: 10,
-                child: Text('Home Page', textAlign: TextAlign.center),
-              ),
               Positioned(
                 top: 20,
                 right: 10,
@@ -40,9 +38,9 @@ class HomePageState extends State<HomePage> {
               Positioned(
                 top: 50,
                 left: 10,
-                child: Text('Your user ID: ${currentUser.id}'),
+                child: Text('Your Phone Number: ${currentUser.id}'),
               ),
-              userListView(),
+              joinCallContaier(),
             ],
           ),
         ),
@@ -51,46 +49,63 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget logoutButton() {
-    return ElevatedButton(
-      child: const Text('Logout', style: textStyle),
-      onPressed: () async {
-        final prefs = await SharedPreferences.getInstance();
-        prefs.remove(cacheUserIDKey);
+    return Ink(
+      width: 35,
+      height: 35,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.redAccent,
+      ),
+      child: IconButton(
+        icon: const Icon(Icons.exit_to_app_sharp),
+        iconSize: 20,
+        color: Colors.white,
+        onPressed: () async {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.remove(cacheUserIDKey);
 
-        Navigator.pushNamed(
-          context,
-          PageRouteNames.login,
-        );
-      },
+          Navigator.pushNamed(
+            context,
+            PageRouteNames.login,
+          );
+        },
+      ),
     );
   }
 
-  Widget userListView() {
+  Widget joinCallContaier() {
     return Center(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          final userName = 'User $index';
-          return Row(
-            children: [
-              const SizedBox(width: 20),
-              Text(userName, style: textStyle),
-              Expanded(child: Container()),
-              ElevatedButton(
-                child: const Text('Details', style: textStyle),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    PageRouteNames.call,
-                  );
-                },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: callIDTextCtrl,
+                decoration: const InputDecoration(
+                  labelText: 'join a group call by id',
+                ),
               ),
-              const SizedBox(width: 20),
-            ],
-          );
-        },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (ZegoUIKitPrebuiltCallMiniOverlayMachine().isMinimizing) {
+                  /// when the application is minimized (in a minimized state),
+                  /// disable button clicks to prevent multiple PrebuiltCall components from being created.
+                  return;
+                }
+
+                Navigator.pushNamed(context, PageRouteNames.prebuilt_call,
+                    arguments: <String, String>{
+                      PageParam.call_id: callIDTextCtrl.text,
+                    });
+              },
+              child: const Text('join'),
+            ),
+          ],
+        ),
       ),
     );
   }
