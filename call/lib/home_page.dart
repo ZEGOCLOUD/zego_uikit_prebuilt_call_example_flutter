@@ -99,7 +99,7 @@ class HomePageState extends State<HomePage> {
                   return;
                 }
 
-                Navigator.pushNamed(context, PageRouteNames.prebuilt_call,
+                Navigator.pushNamed(context, PageRouteNames.call,
                     arguments: <String, String>{
                       PageParam.call_id: callIDTextCtrl.text,
                     });

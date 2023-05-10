@@ -18,8 +18,8 @@ dependencies:
   shared_preferences: ^2.1.0
   faker: ^2.1.0
 
-  zego_uikit_prebuilt_call: ^3.3.6
-  zego_uikit_signaling_plugin: ^2.1.2
+  zego_uikit_prebuilt_call: ^3.3.11
+  zego_uikit_signaling_plugin: ^2.1.4
 
 dev_dependencies:
   flutter_test:

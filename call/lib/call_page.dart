@@ -1,6 +1,4 @@
 // Flutter imports:
-
-// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -17,73 +15,55 @@ class CallPage extends StatefulWidget {
 }
 
 class CallPageState extends State<CallPage> {
-  /// Users who use the same callID can in the same call.
-  final callIDTextCtrl = TextEditingController(text: 'call_id');
+  ZegoUIKitPrebuiltCallController? callController;
+
+  @override
+  void initState() {
+    super.initState();
+    callController = ZegoUIKitPrebuiltCallController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    callController = null;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map<String, String>;
+    final callID = arguments[PageParam.call_id] ?? '';
+
     return SafeArea(
-      child: Scaffold(
-        body: WillPopScope(
-          onWillPop: () async {
-            return false;
+      child: ZegoUIKitPrebuiltCall(
+        appID: yourAppID /*input your AppID*/,
+        appSign: yourAppSign /*input your AppSign*/,
+        userID: currentUser.id,
+        userName: currentUser.name,
+        callID: callID,
+        controller: callController,
+        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+
+          /// support minimizing
+          ..topMenuBarConfig.isVisible = true
+          ..topMenuBarConfig.buttons = [
+            ZegoMenuBarButtonName.minimizingButton,
+            ZegoMenuBarButtonName.showMemberListButton,
+          ]
+
+          ///
+          ..onOnlySelfInRoom = (context) {
+            if (PrebuiltCallMiniOverlayPageState.idle !=
+                ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
+              ZegoUIKitPrebuiltCallMiniOverlayMachine()
+                  .changeState(PrebuiltCallMiniOverlayPageState.idle);
+            } else {
+              Navigator.of(context).pop();
+            }
           },
-          child: Stack(
-            children: [
-              Positioned(
-                top: 10,
-                left: 10,
-                child: backButton(),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: callIDTextCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'join a call by id',
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (ZegoUIKitPrebuiltCallMiniOverlayMachine()
-                              .isMinimizing) {
-                            /// when the application is minimized (in a minimized state),
-                            /// disable button clicks to prevent multiple PrebuiltCall components from being created.
-                            return;
-                          }
-
-                          Navigator.pushNamed(
-                              context, PageRouteNames.prebuilt_call,
-                              arguments: <String, String>{
-                                PageParam.call_id: callIDTextCtrl.text,
-                              });
-                        },
-                        child: const Text('join'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
-    );
-  }
-
-  Widget backButton() {
-    return ElevatedButton(
-      child: const Text('Back', style: textStyle),
-      onPressed: () async {
-        Navigator.pop(context);
-      },
     );
   }
 }

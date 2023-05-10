@@ -1,9 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
+// Package imports:
 import 'package:faker/faker.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
 import 'constants.dart';
