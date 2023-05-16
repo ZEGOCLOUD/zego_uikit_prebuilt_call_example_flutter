@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:faker/faker.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:zego_uikit/zego_uikit.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
@@ -81,8 +82,8 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget userListView() {
-    final RandomGenerator random = RandomGenerator();
-    final Faker faker = Faker();
+    final random = RandomGenerator();
+    final faker = Faker();
 
     return Center(
       child: ListView.builder(
@@ -96,13 +97,13 @@ class HomePageState extends State<HomePage> {
             inviteeUsersIDTextCtrl = singleInviteeUserIDTextCtrl;
             userInfo = [
               const Text('invitee name ('),
-              InviteeIDFormField(
+              inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
                 ],
-                labelText: "invitee ID",
-                hintText: "plz enter invitee ID",
+                labelText: 'invitee ID',
+                hintText: 'plz enter invitee ID',
               ),
               const Text(')'),
             ];
@@ -110,12 +111,12 @@ class HomePageState extends State<HomePage> {
             inviteeUsersIDTextCtrl = groupInviteeUserIDsTextCtrl;
             userInfo = [
               const Text('group name ('),
-              InviteeIDFormField(
+              inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
                 ],
-                labelText: "invitees ID",
+                labelText: 'invitees ID',
                 hintText: "separate IDs by ','",
               ),
               const Text(')'),
@@ -139,12 +140,12 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(width: 20),
                   ...userInfo,
                   Expanded(child: Container()),
-                  SendCallButton(
+                  sendCallButton(
                     isVideoCall: false,
                     inviteeUsersIDTextCtrl: inviteeUsersIDTextCtrl,
                     onCallFinished: onSendCallInvitationFinished,
                   ),
-                  SendCallButton(
+                  sendCallButton(
                     isVideoCall: true,
                     inviteeUsersIDTextCtrl: inviteeUsersIDTextCtrl,
                     onCallFinished: onSendCallInvitationFinished,
@@ -169,21 +170,21 @@ class HomePageState extends State<HomePage> {
     List<String> errorInvitees,
   ) {
     if (errorInvitees.isNotEmpty) {
-      String userIDs = "";
-      for (int index = 0; index < errorInvitees.length; index++) {
+      var userIDs = '';
+      for (var index = 0; index < errorInvitees.length; index++) {
         if (index >= 5) {
           userIDs += '... ';
           break;
         }
 
-        var userID = errorInvitees.elementAt(index);
-        userIDs += userID + ' ';
+        final userID = errorInvitees.elementAt(index);
+        userIDs += '$userID ';
       }
       if (userIDs.isNotEmpty) {
         userIDs = userIDs.substring(0, userIDs.length - 1);
       }
 
-      var message = 'User doesn\'t exist or is offline: $userIDs';
+      var message = "User doesn't exist or is offline: $userIDs";
       if (code.isNotEmpty) {
         message += ', code: $code, message:$message';
       }
@@ -202,7 +203,7 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-Widget InviteeIDFormField({
+Widget inviteeIDFormField({
   required TextEditingController textCtrl,
   List<TextInputFormatter>? formatters,
   String hintText = '',
@@ -230,7 +231,7 @@ Widget InviteeIDFormField({
   );
 }
 
-Widget SendCallButton({
+Widget sendCallButton({
   required bool isVideoCall,
   required TextEditingController inviteeUsersIDTextCtrl,
   void Function(String code, String message, List<String>)? onCallFinished,
@@ -238,12 +239,12 @@ Widget SendCallButton({
   return ValueListenableBuilder<TextEditingValue>(
     valueListenable: inviteeUsersIDTextCtrl,
     builder: (context, inviteeUserID, _) {
-      var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
+      final invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
 
       return ZegoSendCallInvitationButton(
         isVideoCall: isVideoCall,
         invitees: invitees,
-        resourceID: "zego_data",
+        resourceID: 'zego_data',
         iconSize: const Size(40, 40),
         buttonSize: const Size(50, 50),
         onPressed: onCallFinished,
@@ -253,10 +254,10 @@ Widget SendCallButton({
 }
 
 List<ZegoUIKitUser> getInvitesFromTextCtrl(String textCtrlText) {
-  List<ZegoUIKitUser> invitees = [];
+  final invitees = <ZegoUIKitUser>[];
 
-  var inviteeIDs = textCtrlText.trim().replaceAll('，', '');
-  inviteeIDs.split(",").forEach((inviteeUserID) {
+  final inviteeIDs = textCtrlText.trim().replaceAll('，', '');
+  inviteeIDs.split(',').forEach((inviteeUserID) {
     if (inviteeUserID.isEmpty) {
       return;
     }

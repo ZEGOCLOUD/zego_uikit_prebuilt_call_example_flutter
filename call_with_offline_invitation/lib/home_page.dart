@@ -97,7 +97,7 @@ class HomePageState extends State<HomePage> {
             inviteeUsersIDTextCtrl = singleInviteeUserIDTextCtrl;
             userInfo = [
               const Text('invitee name ('),
-              InviteeIDFormField(
+              inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
@@ -111,7 +111,7 @@ class HomePageState extends State<HomePage> {
             inviteeUsersIDTextCtrl = groupInviteeUserIDsTextCtrl;
             userInfo = [
               const Text('group name ('),
-              InviteeIDFormField(
+              inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
@@ -140,12 +140,12 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(width: 20),
                   ...userInfo,
                   Expanded(child: Container()),
-                  SendCallButton(
+                  sendCallButton(
                     isVideoCall: false,
                     inviteeUsersIDTextCtrl: inviteeUsersIDTextCtrl,
                     onCallFinished: onSendCallInvitationFinished,
                   ),
-                  SendCallButton(
+                  sendCallButton(
                     isVideoCall: true,
                     inviteeUsersIDTextCtrl: inviteeUsersIDTextCtrl,
                     onCallFinished: onSendCallInvitationFinished,
@@ -203,7 +203,7 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-Widget InviteeIDFormField({
+Widget inviteeIDFormField({
   required TextEditingController textCtrl,
   List<TextInputFormatter>? formatters,
   String hintText = '',
@@ -231,7 +231,7 @@ Widget InviteeIDFormField({
   );
 }
 
-Widget SendCallButton({
+Widget sendCallButton({
   required bool isVideoCall,
   required TextEditingController inviteeUsersIDTextCtrl,
   void Function(String code, String message, List<String>)? onCallFinished,

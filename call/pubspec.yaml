@@ -17,7 +17,8 @@ dependencies:
   device_info_plus: ^3.2.3
   shared_preferences: ^2.1.0
 
-  zego_uikit_prebuilt_call: ^3.3.11
+  zego_uikit: ^2.5.7
+  zego_uikit_prebuilt_call: ^3.3.15
 
 dev_dependencies:
   flutter_test:
