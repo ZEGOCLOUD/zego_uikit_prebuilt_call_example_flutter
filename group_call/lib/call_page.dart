@@ -9,14 +9,30 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 // Project imports:
 import 'constants.dart';
 
-class PrebuiltCallPage extends StatefulWidget {
-  const PrebuiltCallPage({Key? key}) : super(key: key);
+class CallPage extends StatefulWidget {
+  const CallPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PrebuiltCallPageState();
+  State<StatefulWidget> createState() => CallPageState();
 }
 
-class PrebuiltCallPageState extends State<PrebuiltCallPage> {
+class CallPageState extends State<CallPage> {
+  ZegoUIKitPrebuiltCallController? callController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    callController = ZegoUIKitPrebuiltCallController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    callController = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -30,6 +46,7 @@ class PrebuiltCallPageState extends State<PrebuiltCallPage> {
         userID: currentUser.id,
         userName: currentUser.name,
         callID: callID,
+        controller: callController,
         config: ZegoUIKitPrebuiltCallConfig.groupVideoCall()
 
           /// support minimizing

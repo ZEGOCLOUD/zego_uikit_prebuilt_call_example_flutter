@@ -6,6 +6,8 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 // Project imports:
 import 'constants.dart';
 
+ZegoUIKitPrebuiltCallController? callController;
+
 /// local virtual login
 Future<void> login({
   required String userID,
@@ -26,6 +28,8 @@ Future<void> logout() async {
 
 /// on user login
 void onUserLogin() {
+  callController ??= ZegoUIKitPrebuiltCallController();
+
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: yourAppID /*input your AppID*/,
@@ -34,6 +38,7 @@ void onUserLogin() {
     userName: currentUser.name,
     notifyWhenAppRunningInBackgroundOrQuit: false,
     plugins: [ZegoUIKitSignalingPlugin()],
+    controller: callController,
     requireConfig: (ZegoCallInvitationData data) {
       final config = (data.invitees.length > 1)
           ? ZegoCallType.videoCall == data.type
@@ -55,6 +60,8 @@ void onUserLogin() {
 
 /// on user logout
 void onUserLogout() {
+  callController = null;
+
   /// 5/5. de-initialization ZegoUIKitPrebuiltCallInvitationService when account is logged out
   ZegoUIKitPrebuiltCallInvitationService().uninit();
 }

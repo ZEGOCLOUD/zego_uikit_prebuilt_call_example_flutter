@@ -18,8 +18,8 @@ dependencies:
   shared_preferences: ^2.1.0
   faker: ^2.1.0
 
-  zego_uikit: ^2.5.7
-  zego_uikit_prebuilt_call: ^3.3.15
+  zego_uikit: ^2.5.8
+  zego_uikit_prebuilt_call: ^3.3.16
   zego_uikit_signaling_plugin: ^2.1.5
 
 dev_dependencies:

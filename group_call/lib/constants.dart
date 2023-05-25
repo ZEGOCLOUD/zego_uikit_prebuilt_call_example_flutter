@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:group_call/home_page.dart';
 import 'package:group_call/login_page.dart';
-import 'package:group_call/prebuilt_call_page.dart';
+import 'package:group_call/call_page.dart';
 
 class PageRouteNames {
   static const String login = '/login';
@@ -32,7 +32,7 @@ const TextStyle textStyle = TextStyle(
 Map<String, WidgetBuilder> routes = {
   PageRouteNames.login: (context) => const LoginPage(),
   PageRouteNames.home: (context) => const HomePage(),
-  PageRouteNames.prebuilt_call: (context) => const PrebuiltCallPage(),
+  PageRouteNames.prebuilt_call: (context) => const CallPage(),
 };
 
 class UserInfo {
