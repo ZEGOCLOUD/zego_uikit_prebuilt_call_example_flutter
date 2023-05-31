@@ -17,10 +17,11 @@ dependencies:
   device_info_plus: ^3.2.3
   shared_preferences: ^2.1.0
   faker: ^2.1.0
+  cached_network_image: ^3.2.3
 
-  zego_uikit: ^2.5.9
-  zego_uikit_prebuilt_call: ^3.3.17
-  zego_uikit_signaling_plugin: ^2.1.6
+  zego_uikit: ^2.5.12
+  zego_uikit_prebuilt_call: ^3.3.21
+  zego_uikit_signaling_plugin: ^2.1.9
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
+import 'common.dart';
 import 'constants.dart';
 
 class CallPage extends StatefulWidget {
@@ -52,6 +53,7 @@ class CallPageState extends State<CallPage> {
             ZegoMenuBarButtonName.minimizingButton,
             ZegoMenuBarButtonName.showMemberListButton,
           ]
+          ..avatarBuilder = customAvatarBuilder
 
           ///
           ..onOnlySelfInRoom = (context) {

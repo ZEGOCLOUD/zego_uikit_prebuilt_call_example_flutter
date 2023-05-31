@@ -5,6 +5,7 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 // Project imports:
 import 'constants.dart';
+import 'common.dart';
 
 ZegoUIKitPrebuiltCallController? callController;
 
@@ -53,6 +54,8 @@ void onUserLogin() {
           : ZegoCallType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
+
+      config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
       config.topMenuBarConfig.isVisible = true;
