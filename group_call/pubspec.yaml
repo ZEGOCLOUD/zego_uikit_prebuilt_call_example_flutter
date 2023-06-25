@@ -18,8 +18,8 @@ dependencies:
   shared_preferences: ^2.1.0
   cached_network_image: ^3.2.3
 
-  zego_uikit: ^2.5.19
-  zego_uikit_prebuilt_call: ^3.5.2
+  zego_uikit: ^2.5.22
+  zego_uikit_prebuilt_call: ^3.6.2
 
 dev_dependencies:
   flutter_test:
