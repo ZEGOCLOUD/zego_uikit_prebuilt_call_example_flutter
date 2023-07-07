@@ -17,7 +17,7 @@ Future<String> getUniqueUserId() async {
     deviceID = iosDeviceInfo.identifierForVendor; // unique ID on iOS
   } else if (Platform.isAndroid) {
     final androidDeviceInfo = await deviceInfo.androidInfo;
-    deviceID = androidDeviceInfo.androidId; // unique ID on Android
+    deviceID = androidDeviceInfo.id; // unique ID on Android
   }
 
   if (deviceID != null && deviceID.length < 4) {

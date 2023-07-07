@@ -15,13 +15,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_styled_toast: ^2.1.3
   device_info_plus: ^3.2.3
-  shared_preferences: ^2.1.0
+  shared_preferences: any
   faker: ^2.1.0
   cached_network_image: ^3.2.3
 
-  zego_uikit: ^2.5.22
-  zego_uikit_prebuilt_call: ^3.6.2
-  zego_uikit_signaling_plugin: ^2.1.10
+  zego_uikit: ^2.7.1
+  zego_uikit_prebuilt_call: ^3.9.2
+  zego_uikit_signaling_plugin: ^2.2.0
+
+dependency_overrides:
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
