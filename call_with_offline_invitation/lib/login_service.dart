@@ -38,11 +38,14 @@ void onUserLogin() {
     userID: currentUser.id,
     userName: currentUser.name,
     notifyWhenAppRunningInBackgroundOrQuit: true,
-    isIOSSandboxEnvironment: false,
     androidNotificationConfig: ZegoAndroidNotificationConfig(
       channelID: "ZegoUIKit",
       channelName: "Call Notifications",
       sound: "zego_incoming",
+    ),
+    iOSNotificationConfig: ZegoIOSNotificationConfig(
+      isSandboxEnvironment: false,
+      systemCallingIconName: 'CallKitIcon',
     ),
     plugins: [ZegoUIKitSignalingPlugin()],
     controller: callController,
