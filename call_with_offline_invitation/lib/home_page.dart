@@ -239,7 +239,7 @@ Widget sendCallButton({
   return ValueListenableBuilder<TextEditingValue>(
     valueListenable: inviteeUsersIDTextCtrl,
     builder: (context, inviteeUserID, _) {
-      var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text);
+      var invitees = getInvitesFromTextCtrl(inviteeUsersIDTextCtrl.text.trim());
 
       return ZegoSendCallInvitationButton(
         isVideoCall: isVideoCall,

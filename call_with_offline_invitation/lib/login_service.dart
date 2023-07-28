@@ -41,7 +41,7 @@ void onUserLogin() {
     androidNotificationConfig: ZegoAndroidNotificationConfig(
       channelID: "ZegoUIKit",
       channelName: "Call Notifications",
-      sound: "zego_incoming",
+      sound: "notification",
     ),
     iOSNotificationConfig: ZegoIOSNotificationConfig(
       isSandboxEnvironment: false,

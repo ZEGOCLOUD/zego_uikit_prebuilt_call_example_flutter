@@ -101,7 +101,7 @@ class HomePageState extends State<HomePage> {
 
                 Navigator.pushNamed(context, PageRouteNames.call,
                     arguments: <String, String>{
-                      PageParam.call_id: callIDTextCtrl.text,
+                      PageParam.call_id: callIDTextCtrl.text.trim(),
                     });
               },
               child: const Text('join'),
