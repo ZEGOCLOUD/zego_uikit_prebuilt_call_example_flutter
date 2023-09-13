@@ -12,9 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  zego_uikit: ^2.9.3
-  zego_uikit_prebuilt_call: ^3.12.3
-  zego_uikit_signaling_plugin: ^2.3.2
+  zego_uikit: ^2.12.0
+  zego_uikit_prebuilt_call: ^3.14.0
+  zego_uikit_signaling_plugin: ^2.5.0
 
   cupertino_icons: ^1.0.2
   flutter_styled_toast: ^2.1.3

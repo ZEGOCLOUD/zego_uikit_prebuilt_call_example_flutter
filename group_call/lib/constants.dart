@@ -5,9 +5,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:group_call/call_page.dart';
 import 'package:group_call/home_page.dart';
 import 'package:group_call/login_page.dart';
-import 'package:group_call/call_page.dart';
 
 class PageRouteNames {
   static const String login = '/login';
