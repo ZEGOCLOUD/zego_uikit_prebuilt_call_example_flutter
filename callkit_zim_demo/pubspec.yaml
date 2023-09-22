@@ -1,0 +1,47 @@
+name: zego_callkit_zim_demo
+description: A new Flutter project.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.5
+
+  zego_uikit_prebuilt_call: ^3.15.1
+  zego_uikit_signaling_plugin: ^2.5.2
+
+  zego_zim: any # depends on zego_uikit_signaling_plugin's zim version
+
+  equatable: ^2.0.5
+  cached_network_image: ^3.2.3
+  permission_handler: ^10.2.0
+  encrypt: ^5.0.1
+  logging: ^1.1.1
+  badges: ^3.0.2
+  async: ^2.0.0
+  video_player: ^2.7.0
+  file_picker: ^5.2.5
+  video_player_macos: ^2.0.1
+  chewie: ^1.7.0
+  provider: ^6.0.5
+  zego_plugin_adapter: ^2.7.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: any
+  dart_code_metrics: any
+  import_sorter: any
+
+import_sorter:
+  comments: false
+
+flutter:
+  uses-material-design: true
