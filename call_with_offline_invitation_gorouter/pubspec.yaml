@@ -1,7 +1,7 @@
 name: call_with_offline_invitation_gorouter
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -26,14 +26,17 @@ dependencies:
 
 dependency_overrides:
   intl: ^0.18.1
-
+  awesome_notifications:
+    git:
+      url: https://github.com/Yerannnnnn/awesome_notifications.git
+      ref: 0.7.4+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
-  import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
+  import_sorter: ^4.6.0 # run 'flutter pub run import_sorter:main'
 
 flutter:
   uses-material-design: true
