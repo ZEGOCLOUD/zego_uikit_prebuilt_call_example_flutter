@@ -21,6 +21,9 @@ dependencies:
   zego_uikit: ^2.13.2
   zego_uikit_prebuilt_call: ^3.15.5
 
+dependency_overrides:
+  intl: ^0.18.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
