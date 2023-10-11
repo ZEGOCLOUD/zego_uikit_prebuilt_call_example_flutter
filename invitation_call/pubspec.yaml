@@ -6,7 +6,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.16.2 <4.0.0"
 
 dependencies:
   flutter:
@@ -31,7 +31,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^1.0.0
-  import_sorter: ^4.6.0 # run 'flutter pub run import_sorter:main'
+  import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
   dart_code_metrics: any
 
 flutter:

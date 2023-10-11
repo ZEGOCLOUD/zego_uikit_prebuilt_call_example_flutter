@@ -42,6 +42,7 @@ void onUserLogin() {
       channelID: "ZegoUIKit",
       channelName: "Call Notifications",
       sound: "notification",
+      icon: "notification_icon",
     ),
     iOSNotificationConfig: ZegoIOSNotificationConfig(
       isSandboxEnvironment: false,
