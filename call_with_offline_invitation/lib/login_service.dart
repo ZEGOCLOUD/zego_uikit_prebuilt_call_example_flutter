@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
@@ -37,7 +38,6 @@ void onUserLogin() {
     appSign: yourAppSign /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-    notifyWhenAppRunningInBackgroundOrQuit: true,
     androidNotificationConfig: ZegoAndroidNotificationConfig(
       channelID: "ZegoUIKit",
       channelName: "Call Notifications",
@@ -45,7 +45,6 @@ void onUserLogin() {
       icon: "notification_icon",
     ),
     iOSNotificationConfig: ZegoIOSNotificationConfig(
-      isSandboxEnvironment: false,
       systemCallingIconName: 'CallKitIcon',
     ),
     plugins: [ZegoUIKitSignalingPlugin()],
@@ -65,6 +64,10 @@ void onUserLogin() {
       config.topMenuBarConfig.isVisible = true;
       config.topMenuBarConfig.buttons
           .insert(0, ZegoMenuBarButtonName.minimizingButton);
+
+      config.onError = (ZegoUIKitError error) {
+        debugPrint('onError:$error');
+      };
 
       return config;
     },
