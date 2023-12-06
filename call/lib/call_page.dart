@@ -59,8 +59,8 @@ class CallPageState extends State<CallPage> {
           ..onOnlySelfInRoom = (context) {
             if (PrebuiltCallMiniOverlayPageState.idle !=
                 ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
-              ZegoUIKitPrebuiltCallMiniOverlayMachine()
-                  .changeState(PrebuiltCallMiniOverlayPageState.idle);
+              /// now is minimizing state, not need to navigate, just switch to idle
+              ZegoUIKitPrebuiltCallMiniOverlayMachine().switchToIdle();
             } else {
               Navigator.of(context).pop();
             }

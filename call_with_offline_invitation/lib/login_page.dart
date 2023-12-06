@@ -2,6 +2,7 @@
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'constants.dart';
@@ -36,7 +37,7 @@ class LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: WillPopScope(
         onWillPop: () async {
-          return false;
+          return ZegoUIKit().onWillPop(context);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 50),

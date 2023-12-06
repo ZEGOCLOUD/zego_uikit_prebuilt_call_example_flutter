@@ -18,8 +18,8 @@ dependencies:
   shared_preferences: any
   cached_network_image: ^3.3.0
 
-  zego_uikit: ^2.14.3
-  zego_uikit_prebuilt_call: ^3.17.2
+  zego_uikit: ^2.15.0
+  zego_uikit_prebuilt_call: ^3.17.10
 
 dependency_overrides:
   intl: ^0.18.1
@@ -28,7 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
+  flutter_lints: ^3.0.0
   import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
   dart_code_metrics: any
 

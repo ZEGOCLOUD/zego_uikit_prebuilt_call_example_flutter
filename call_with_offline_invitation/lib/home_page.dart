@@ -33,7 +33,7 @@ class HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         body: WillPopScope(
           onWillPop: () async {
-            return false;
+            return ZegoUIKit().onWillPop(context);
           },
           child: Stack(
             children: [
