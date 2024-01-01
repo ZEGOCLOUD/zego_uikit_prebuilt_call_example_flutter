@@ -15,7 +15,6 @@ dependencies:
   zego_uikit: ^2.15.1
   zego_uikit_prebuilt_call: ^3.18.0
   zego_uikit_signaling_plugin: ^2.7.2
-  zego_uikit_beauty_plugin: ^1.4.1
 
   cupertino_icons: ^1.0.2
   flutter_styled_toast: ^2.1.3
