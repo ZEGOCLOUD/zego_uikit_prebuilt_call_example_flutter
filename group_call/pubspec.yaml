@@ -18,8 +18,8 @@ dependencies:
   shared_preferences: any
   cached_network_image: ^3.3.0
 
-  zego_uikit: ^2.15.1
-  zego_uikit_prebuilt_call: ^3.18.0
+  zego_uikit: ^2.15.8
+  zego_uikit_prebuilt_call: ^4.4.0
 
 dependency_overrides:
   intl: ^0.18.1

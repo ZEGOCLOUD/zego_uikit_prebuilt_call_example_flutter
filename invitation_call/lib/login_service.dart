@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
@@ -6,8 +7,6 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 // Project imports:
 import 'common.dart';
 import 'constants.dart';
-
-ZegoUIKitPrebuiltCallController? callController;
 
 /// local virtual login
 Future<void> login({
@@ -29,17 +28,13 @@ Future<void> logout() async {
 
 /// on user login
 void onUserLogin() {
-  callController ??= ZegoUIKitPrebuiltCallController();
-
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: yourAppID /*input your AppID*/,
     appSign: yourAppSign /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-    notifyWhenAppRunningInBackgroundOrQuit: false,
     plugins: [ZegoUIKitSignalingPlugin()],
-    controller: callController,
     requireConfig: (ZegoCallInvitationData data) {
       final config = (data.invitees.length > 1)
           ? ZegoCallType.videoCall == data.type
@@ -49,6 +44,7 @@ void onUserLogin() {
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
 
+      /// custom avatar
       config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
@@ -63,8 +59,6 @@ void onUserLogin() {
 
 /// on user logout
 void onUserLogout() {
-  callController = null;
-
   /// 5/5. de-initialization ZegoUIKitPrebuiltCallInvitationService when account is logged out
   ZegoUIKitPrebuiltCallInvitationService().uninit();
 }

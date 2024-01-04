@@ -16,22 +16,6 @@ class CallPage extends StatefulWidget {
 }
 
 class CallPageState extends State<CallPage> {
-  ZegoUIKitPrebuiltCallController? callController;
-
-  @override
-  void initState() {
-    super.initState();
-
-    callController = ZegoUIKitPrebuiltCallController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    callController = null;
-  }
-
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -45,7 +29,6 @@ class CallPageState extends State<CallPage> {
         userID: currentUser.id,
         userName: currentUser.name,
         callID: callID,
-        controller: callController,
         config: ZegoUIKitPrebuiltCallConfig.groupVideoCall()
           ..avatarBuilder = customAvatarBuilder
 

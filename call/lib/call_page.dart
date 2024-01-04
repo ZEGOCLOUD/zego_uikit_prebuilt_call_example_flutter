@@ -16,21 +16,6 @@ class CallPage extends StatefulWidget {
 }
 
 class CallPageState extends State<CallPage> {
-  ZegoUIKitPrebuiltCallController? callController;
-
-  @override
-  void initState() {
-    super.initState();
-    callController = ZegoUIKitPrebuiltCallController();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    callController = null;
-  }
-
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -44,7 +29,6 @@ class CallPageState extends State<CallPage> {
         userID: currentUser.id,
         userName: currentUser.name,
         callID: callID,
-        controller: callController,
         config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
 
           /// support minimizing
@@ -53,18 +37,7 @@ class CallPageState extends State<CallPage> {
             ZegoMenuBarButtonName.minimizingButton,
             ZegoMenuBarButtonName.showMemberListButton,
           ]
-          ..avatarBuilder = customAvatarBuilder
-
-          ///
-          ..onOnlySelfInRoom = (context) {
-            if (PrebuiltCallMiniOverlayPageState.idle !=
-                ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
-              /// now is minimizing state, not need to navigate, just switch to idle
-              ZegoUIKitPrebuiltCallMiniOverlayMachine().switchToIdle();
-            } else {
-              Navigator.of(context).pop();
-            }
-          },
+          ..avatarBuilder = customAvatarBuilder,
       ),
     );
   }
