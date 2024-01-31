@@ -33,10 +33,10 @@ class CallPageState extends State<CallPage> {
           ..avatarBuilder = customAvatarBuilder
 
           /// support minimizing
-          ..topMenuBarConfig.isVisible = true
-          ..topMenuBarConfig.buttons = [
-            ZegoMenuBarButtonName.minimizingButton,
-            ZegoMenuBarButtonName.showMemberListButton,
+          ..topMenuBar.isVisible = true
+          ..topMenuBar.buttons = [
+            ZegoCallMenuBarButtonName.minimizingButton,
+            ZegoCallMenuBarButtonName.showMemberListButton,
           ],
       ),
     );

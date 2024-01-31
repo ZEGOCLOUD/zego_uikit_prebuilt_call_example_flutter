@@ -61,9 +61,9 @@ void onUserLogin() {
       config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
-      config.topMenuBarConfig.isVisible = true;
-      config.topMenuBarConfig.buttons
-          .insert(0, ZegoMenuBarButtonName.minimizingButton);
+      config.topMenuBar.isVisible = true;
+      config.topMenuBar.buttons
+          .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
 
       return config;
     },
