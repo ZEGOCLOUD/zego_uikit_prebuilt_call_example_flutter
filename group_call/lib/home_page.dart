@@ -40,7 +40,7 @@ class HomePageState extends State<HomePage> {
                 left: 10,
                 child: Text('Your Phone Number: ${currentUser.id}'),
               ),
-              joinCallContaier(),
+              joinCallContainer(),
             ],
           ),
         ),
@@ -73,7 +73,7 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget joinCallContaier() {
+  Widget joinCallContainer() {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -91,7 +91,7 @@ class HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (ZegoUIKitPrebuiltCallMiniOverlayMachine().isMinimizing) {
+                if (ZegoUIKitPrebuiltCallController().minimize.isMinimizing) {
                   /// when the application is minimized (in a minimized state),
                   /// disable button clicks to prevent multiple PrebuiltCall components from being created.
                   return;
