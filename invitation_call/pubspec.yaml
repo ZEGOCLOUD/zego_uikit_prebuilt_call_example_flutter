@@ -20,7 +20,7 @@ dependencies:
   cached_network_image: ^3.3.0
 
   zego_uikit: ^2.18.7
-  zego_uikit_prebuilt_call: ^4.3.0
+  zego_uikit_prebuilt_call: ^4.5.0
   zego_uikit_signaling_plugin: ^2.7.6
 
 dependency_overrides:

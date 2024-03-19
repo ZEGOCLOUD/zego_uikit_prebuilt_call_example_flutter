@@ -36,6 +36,7 @@ class CallPageState extends State<CallPage> {
           ..topMenuBar.buttons = [
             ZegoCallMenuBarButtonName.minimizingButton,
             ZegoCallMenuBarButtonName.showMemberListButton,
+            ZegoCallMenuBarButtonName.soundEffectButton,
           ]
           ..avatarBuilder = customAvatarBuilder,
       ),

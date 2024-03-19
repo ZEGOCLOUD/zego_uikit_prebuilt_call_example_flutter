@@ -65,6 +65,8 @@ void onUserLogin() {
       config.topMenuBar.isVisible = true;
       config.topMenuBar.buttons
           .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
+      config.topMenuBar.buttons
+          .insert(0, ZegoCallMenuBarButtonName.soundEffectButton);
 
       return config;
     },
