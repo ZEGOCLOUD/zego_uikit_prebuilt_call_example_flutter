@@ -41,6 +41,7 @@ void onUserLogin() {
     notificationConfig: ZegoCallInvitationNotificationConfig(
       androidNotificationConfig: ZegoCallAndroidNotificationConfig(
         showFullScreen: true,
+        fullScreenBackground: 'assets/image/call.png',
         channelID: "ZegoUIKit",
         channelName: "Call Notifications",
         sound: "call",
@@ -65,8 +66,6 @@ void onUserLogin() {
       config.topMenuBar.isVisible = true;
       config.topMenuBar.buttons
           .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
-      config.topMenuBar.buttons
-          .insert(0, ZegoCallMenuBarButtonName.soundEffectButton);
 
       return config;
     },

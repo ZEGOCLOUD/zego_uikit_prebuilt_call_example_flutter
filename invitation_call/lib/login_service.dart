@@ -52,7 +52,7 @@ void onUserLogin() {
       config.topMenuBar.buttons
           .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
       config.topMenuBar.buttons
-          .insert(0, ZegoCallMenuBarButtonName.soundEffectButton);
+          .insert(1, ZegoCallMenuBarButtonName.soundEffectButton);
 
       return config;
     },
