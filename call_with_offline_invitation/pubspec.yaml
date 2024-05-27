@@ -12,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  zego_uikit: ^2.21.5
-  zego_uikit_prebuilt_call: ^4.7.3
+  zego_uikit: ^2.22.3
+  zego_uikit_prebuilt_call: ^4.11.0
   zego_uikit_signaling_plugin: ^2.7.6
 
   cupertino_icons: ^1.0.2

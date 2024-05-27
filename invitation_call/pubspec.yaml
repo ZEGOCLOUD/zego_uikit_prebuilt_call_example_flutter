@@ -19,8 +19,8 @@ dependencies:
   faker: ^2.1.0
   cached_network_image: ^3.3.0
 
-  zego_uikit: ^2.21.5
-  zego_uikit_prebuilt_call: ^4.7.3
+  zego_uikit: ^2.22.3
+  zego_uikit_prebuilt_call: ^4.11.0
   zego_uikit_signaling_plugin: ^2.7.6
 
 dependency_overrides:
