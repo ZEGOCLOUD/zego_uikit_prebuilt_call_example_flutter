@@ -7,8 +7,6 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'constants.dart';
 import 'common.dart';
 
-ZegoUIKitPrebuiltCallController? callController;
-
 /// local virtual login
 Future<void> login({
   required String userID,
@@ -29,26 +27,24 @@ Future<void> logout() async {
 
 /// on user login
 void onUserLogin() {
-  callController ??= ZegoUIKitPrebuiltCallController();
-
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: yourAppID /*input your AppID*/,
     appSign: yourAppSign /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-    notifyWhenAppRunningInBackgroundOrQuit: true,
-    androidNotificationConfig: ZegoAndroidNotificationConfig(
-      channelID: "ZegoUIKit",
-      channelName: "Call Notifications",
-      sound: "notification",
-    ),
-    iOSNotificationConfig: ZegoIOSNotificationConfig(
-      isSandboxEnvironment: false,
-      systemCallingIconName: 'CallKitIcon',
-    ),
     plugins: [ZegoUIKitSignalingPlugin()],
-    controller: callController,
+    notificationConfig: ZegoCallInvitationNotificationConfig(
+      androidNotificationConfig: ZegoCallAndroidNotificationConfig(
+        channelID: "ZegoUIKit",
+        channelName: "Call Notifications",
+        sound: "notification",
+      ),
+      iOSNotificationConfig: ZegoCallIOSNotificationConfig(
+        isSandboxEnvironment: false,
+        systemCallingIconName: 'CallKitIcon',
+      ),
+    ),
     requireConfig: (ZegoCallInvitationData data) {
       final config = (data.invitees.length > 1)
           ? ZegoCallType.videoCall == data.type
@@ -61,9 +57,9 @@ void onUserLogin() {
       config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
-      config.topMenuBarConfig.isVisible = true;
-      config.topMenuBarConfig.buttons
-          .insert(0, ZegoMenuBarButtonName.minimizingButton);
+      config.topMenuBar.isVisible = true;
+      config.topMenuBar.buttons
+          .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
 
       return config;
     },
@@ -72,8 +68,6 @@ void onUserLogin() {
 
 /// on user logout
 void onUserLogout() {
-  callController = null;
-
   /// 5/5. de-initialization ZegoUIKitPrebuiltCallInvitationService when account is logged out
   ZegoUIKitPrebuiltCallInvitationService().uninit();
 }
