@@ -37,10 +37,10 @@ void onUserLogin() {
     plugins: [ZegoUIKitSignalingPlugin()],
     requireConfig: (ZegoCallInvitationData data) {
       final config = (data.invitees.length > 1)
-          ? ZegoCallType.videoCall == data.type
+          ? ZegoCallInvitationType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
               : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
-          : ZegoCallType.videoCall == data.type
+          : ZegoCallInvitationType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
 
