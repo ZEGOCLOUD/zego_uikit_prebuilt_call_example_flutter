@@ -4,6 +4,9 @@ import 'dart:math';
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+
 // Project imports:
 import 'call_page.dart';
 import 'home_page.dart';
@@ -31,7 +34,9 @@ const TextStyle textStyle = TextStyle(
 
 Map<String, WidgetBuilder> routes = {
   PageRouteNames.login: (context) => const LoginPage(),
-  PageRouteNames.home: (context) => const HomePage(),
+  PageRouteNames.home: (context) => const ZegoUIKitPrebuiltCallMiniPopScope(
+        child: HomePage(),
+      ),
   PageRouteNames.call: (context) => const CallPage(),
 };
 

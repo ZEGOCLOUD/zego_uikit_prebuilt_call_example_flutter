@@ -1,10 +1,14 @@
 // Flutter imports:
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+
 // Project imports:
 import 'package:call/common.dart';
 import 'package:call/constants.dart';
-import 'package:flutter/material.dart';
-// Package imports:
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({Key? key}) : super(key: key);
@@ -16,7 +20,8 @@ class CallPage extends StatefulWidget {
 class CallPageState extends State<CallPage> {
   @override
   Widget build(BuildContext context) {
-    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, String>{}) as Map<String, String>;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map<String, String>;
     final callID = arguments[PageParam.call_id] ?? '';
 
     return SafeArea(

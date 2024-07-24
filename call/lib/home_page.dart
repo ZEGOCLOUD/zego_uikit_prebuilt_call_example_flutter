@@ -1,7 +1,6 @@
 // Flutter imports:
 
 // Flutter imports:
-import 'package:call/util.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
+import 'package:call/util.dart';
 import 'constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,25 +27,20 @@ class HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: WillPopScope(
-          onWillPop: () async {
-            return false;
-          },
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                right: 10,
-                child: logoutButton(),
-              ),
-              Positioned(
-                top: 50,
-                left: 10,
-                child: Text('Your Phone Number: ${currentUser.id}'),
-              ),
-              joinCallContainer(),
-            ],
-          ),
+        body: Stack(
+          children: [
+            Positioned(
+              top: 20,
+              right: 10,
+              child: logoutButton(),
+            ),
+            Positioned(
+              top: 50,
+              left: 10,
+              child: Text('Your Phone Number: ${currentUser.id}'),
+            ),
+            joinCallContainer(),
+          ],
         ),
       ),
     );

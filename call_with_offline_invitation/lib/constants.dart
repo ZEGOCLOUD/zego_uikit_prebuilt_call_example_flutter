@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+
 // Project imports:
 import 'home_page.dart';
 import 'login_page.dart';
@@ -18,7 +21,9 @@ const TextStyle textStyle = TextStyle(
 
 Map<String, WidgetBuilder> routes = {
   PageRouteNames.login: (context) => const LoginPage(),
-  PageRouteNames.home: (context) => const HomePage(),
+  PageRouteNames.home: (context) => const ZegoUIKitPrebuiltCallMiniPopScope(
+        child: HomePage(),
+      ),
 };
 
 class UserInfo {

@@ -15,11 +15,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_screenutil: ">=5.5.3+2 <5.6.1"
   device_info_plus: any
-  shared_preferences: any
+  shared_preferences: ^2.2.3
   cached_network_image: ^3.3.0
 
-  zego_uikit: ^2.24.2
-  zego_uikit_prebuilt_call: ^4.12.9
+  zego_uikit: ^2.26.0
+  zego_uikit_prebuilt_call: ^4.14.3
 
 dependency_overrides:
   intl: ^0.18.1

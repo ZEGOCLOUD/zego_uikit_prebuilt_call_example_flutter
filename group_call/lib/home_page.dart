@@ -56,17 +56,25 @@ class HomePageState extends State<HomePage> {
         shape: BoxShape.circle,
         color: Colors.redAccent,
       ),
-      child: IconButton(
-        icon: const Icon(Icons.exit_to_app_sharp),
-        iconSize: 20,
-        color: Colors.white,
-        onPressed: () async {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.remove(cacheUserIDKey);
+      child: ValueListenableBuilder<bool>(
+        valueListenable:
+            ZegoUIKitPrebuiltCallController().minimize.isMinimizingNotifier,
+        builder: (context, isMinimized, _) {
+          return IconButton(
+            icon: const Icon(Icons.exit_to_app_sharp),
+            iconSize: 20,
+            color: Colors.white,
+            onPressed: isMinimized
+                ? null
+                : () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.remove(cacheUserIDKey);
 
-          Navigator.pushNamed(
-            context,
-            PageRouteNames.login,
+                    Navigator.pushNamed(
+                      context,
+                      PageRouteNames.login,
+                    );
+                  },
           );
         },
       ),

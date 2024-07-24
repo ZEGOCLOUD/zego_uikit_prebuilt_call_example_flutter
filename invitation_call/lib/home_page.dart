@@ -31,25 +31,20 @@ class HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: WillPopScope(
-          onWillPop: () async {
-            return false;
-          },
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                right: 10,
-                child: logoutButton(),
-              ),
-              Positioned(
-                top: 50,
-                left: 10,
-                child: Text('Your Phone Number: ${currentUser.id}'),
-              ),
-              userListView(),
-            ],
-          ),
+        body: Stack(
+          children: [
+            Positioned(
+              top: 20,
+              right: 10,
+              child: logoutButton(),
+            ),
+            Positioned(
+              top: 50,
+              left: 10,
+              child: Text('Your Phone Number: ${currentUser.id}'),
+            ),
+            userListView(),
+          ],
         ),
       ),
     );
@@ -63,19 +58,27 @@ class HomePageState extends State<HomePage> {
         shape: BoxShape.circle,
         color: Colors.redAccent,
       ),
-      child: IconButton(
-        icon: const Icon(Icons.exit_to_app_sharp),
-        iconSize: 20,
-        color: Colors.white,
-        onPressed: () {
-          logout().then((value) {
-            onUserLogout();
+      child: ValueListenableBuilder<bool>(
+        valueListenable:
+            ZegoUIKitPrebuiltCallController().minimize.isMinimizingNotifier,
+        builder: (context, isMinimized, _) {
+          return IconButton(
+            icon: const Icon(Icons.exit_to_app_sharp),
+            iconSize: 20,
+            color: Colors.white,
+            onPressed: isMinimized
+                ? null
+                : () {
+                    logout().then((value) {
+                      onUserLogout();
 
-            Navigator.pushNamed(
-              context,
-              PageRouteNames.login,
-            );
-          });
+                      Navigator.pushNamed(
+                        context,
+                        PageRouteNames.login,
+                      );
+                    });
+                  },
+          );
         },
       ),
     );

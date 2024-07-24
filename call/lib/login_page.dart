@@ -36,24 +36,19 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              logo(),
-              const SizedBox(height: 50),
-              userIDEditor(),
-              passwordEditor(),
-              const SizedBox(height: 30),
-              signInButton(),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            logo(),
+            const SizedBox(height: 50),
+            userIDEditor(),
+            passwordEditor(),
+            const SizedBox(height: 30),
+            signInButton(),
+          ],
         ),
       ),
     );
