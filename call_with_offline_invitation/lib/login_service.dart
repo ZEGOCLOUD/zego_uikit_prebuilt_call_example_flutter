@@ -1,7 +1,3 @@
-// Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -43,11 +39,20 @@ void onUserLogin() {
     notificationConfig: ZegoCallInvitationNotificationConfig(
       androidNotificationConfig: ZegoCallAndroidNotificationConfig(
         showFullScreen: true,
-        fullScreenBackground: 'assets/image/call.png',
-        channelID: "ZegoUIKit",
-        channelName: "Call Notifications",
-        sound: "call",
-        icon: "call",
+        fullScreenBackgroundAssetURL: 'assets/image/call.png',
+        callChannel: ZegoCallAndroidNotificationChannelConfig(
+          channelID: "ZegoUIKit",
+          channelName: "Call Notifications",
+          sound: "call",
+          icon: "call",
+        ),
+        missedCallChannel: ZegoCallAndroidNotificationChannelConfig(
+          channelID: "MissedCall",
+          channelName: "Missed Call",
+          sound: "missed_call",
+          icon: "missed_call",
+          vibrate: false,
+        ),
       ),
       iOSNotificationConfig: ZegoCallIOSNotificationConfig(
         systemCallingIconName: 'CallKitIcon',
