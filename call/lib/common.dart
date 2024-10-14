@@ -26,10 +26,6 @@ Widget customAvatarBuilder(
         CircularProgressIndicator(value: downloadProgress.progress),
     errorWidget: (context, url, error) {
       ZegoLoggerService.logInfo(
-        '$user avatar url is invalid',
-        tag: 'live audio',
-        subTag: 'live page',
-      );
       return ZegoAvatar(user: user, avatarSize: size);
     },
   );
