@@ -19,7 +19,7 @@ dependencies:
   faker: ^2.1.0
   cached_network_image: ^3.3.0
 
-  zego_uikit: ^2.28.0-beta.2
+  zego_uikit: ^2.28.0-beta.3
   zego_uikit_signaling_plugin: ^2.8.7
   zego_uikit_prebuilt_call: ^4.17.0-beta.1
 
