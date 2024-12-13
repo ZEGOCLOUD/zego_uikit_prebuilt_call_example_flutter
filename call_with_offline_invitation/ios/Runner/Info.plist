@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>comzegocloudzegouikitexampleprebuiltcall</string>
+	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -30,6 +34,8 @@
 	<string>We require camera access to connect to a call</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We require microphone access to connect to a call</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>photo usage</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
