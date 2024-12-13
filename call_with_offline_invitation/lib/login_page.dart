@@ -1,6 +1,7 @@
 // Flutter imports:
 
 // Flutter imports:
+import 'package:call_with_invitation_and_notification/connect_status.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -41,19 +42,21 @@ class LoginPageState extends State<LoginPage> {
         onWillPop: () async {
           return ZegoUIKit().onWillPop(context);
         },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              logo(),
-              const SizedBox(height: 50),
-              userIDEditor(),
-              passwordEditor(),
-              const SizedBox(height: 30),
-              signInButton(),
-            ],
+        child: ZegoNetworkLoading(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                logo(),
+                const SizedBox(height: 50),
+                userIDEditor(),
+                passwordEditor(),
+                const SizedBox(height: 30),
+                signInButton(),
+              ],
+            ),
           ),
         ),
       ),

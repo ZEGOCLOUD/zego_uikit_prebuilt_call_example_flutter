@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:call_with_invitation_and_notification/connect_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,20 +32,22 @@ class HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            Positioned(
-              top: 20,
-              right: 10,
-              child: logoutButton(),
-            ),
-            Positioned(
-              top: 50,
-              left: 10,
-              child: Text('Your Phone Number: ${currentUser.id}'),
-            ),
-            userListView(),
-          ],
+        body: ZegoNetworkLoading(
+          child: Stack(
+            children: [
+              Positioned(
+                top: 20,
+                right: 10,
+                child: logoutButton(),
+              ),
+              Positioned(
+                top: 50,
+                left: 10,
+                child: Text('Your Phone Number: ${currentUser.id}'),
+              ),
+              userListView(),
+            ],
+          ),
         ),
       ),
     );
@@ -99,11 +102,12 @@ class HomePageState extends State<HomePage> {
           if (0 == index) {
             inviteeUsersIDTextCtrl = singleInviteeUserIDTextCtrl;
             userInfo = [
-              const Text('invitee name ('),
+              const Text('invitee id ('),
               inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
-                  FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
+                  FilteringTextInputFormatter.allow(RegExp(
+                      r'^[a-zA-Z0-9,!#$%&()*+:\-;<=>.?@[\]^_{|}~]{1,32}$')),
                 ],
                 labelText: "invitee ID",
                 hintText: "plz enter invitee ID",
@@ -113,11 +117,12 @@ class HomePageState extends State<HomePage> {
           } else if (1 == index) {
             inviteeUsersIDTextCtrl = groupInviteeUserIDsTextCtrl;
             userInfo = [
-              const Text('group name ('),
+              const Text('group id ('),
               inviteeIDFormField(
                 textCtrl: inviteeUsersIDTextCtrl,
                 formatters: [
-                  FilteringTextInputFormatter.allow(RegExp('[0-9,]')),
+                  FilteringTextInputFormatter.allow(RegExp(
+                      r'^[a-zA-Z0-9,!#$%&()*+:\-;<=>.?@[\]^_{|}~]{1,32}$')),
                 ],
                 labelText: "invitees ID",
                 hintText: "separate IDs by ','",
