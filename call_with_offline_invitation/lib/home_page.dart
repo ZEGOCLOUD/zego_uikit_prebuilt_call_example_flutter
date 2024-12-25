@@ -1,12 +1,10 @@
 // Flutter imports:
-import 'package:call_with_invitation_and_notification/connect_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:faker/faker.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:zego_uikit/zego_uikit.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 // Project imports:
@@ -32,22 +30,20 @@ class HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: ZegoNetworkLoading(
-          child: Stack(
-            children: [
-              Positioned(
-                top: 20,
-                right: 10,
-                child: logoutButton(),
-              ),
-              Positioned(
-                top: 50,
-                left: 10,
-                child: Text('Your Phone Number: ${currentUser.id}'),
-              ),
-              userListView(),
-            ],
-          ),
+        body: Stack(
+          children: [
+            Positioned(
+              top: 20,
+              right: 10,
+              child: logoutButton(),
+            ),
+            Positioned(
+              top: 50,
+              left: 10,
+              child: Text('Your Phone Number: ${currentUser.id}'),
+            ),
+            userListView(),
+          ],
         ),
       ),
     );
@@ -95,7 +91,7 @@ class HomePageState extends State<HomePage> {
       child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 10,
+        itemCount: 2,
         itemBuilder: (context, index) {
           late TextEditingController inviteeUsersIDTextCtrl;
           late List<Widget> userInfo;
@@ -221,11 +217,12 @@ Widget inviteeIDFormField({
   return Expanded(
     flex: 100,
     child: SizedBox(
-      height: 30,
+      height: 80,
       child: TextFormField(
         style: textStyle,
         controller: textCtrl,
         inputFormatters: formatters,
+        maxLines: 3,
         decoration: InputDecoration(
           isDense: true,
           hintText: hintText,
@@ -255,6 +252,7 @@ Widget sendCallButton({
         resourceID: "zego_data",
         iconSize: const Size(40, 40),
         buttonSize: const Size(50, 50),
+        timeoutSeconds: 30,
         onPressed: onCallFinished,
       );
     },
