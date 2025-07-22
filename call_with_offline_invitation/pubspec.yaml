@@ -12,9 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  zego_uikit: ^2.28.0
-  zego_uikit_signaling_plugin: ^2.8.7
-  zego_uikit_prebuilt_call: ^4.16.17
+  zego_uikit: ^2.28.23
+  zego_uikit_signaling_plugin: ^2.8.15
+  zego_uikit_prebuilt_call: ^4.17.9
 
 
   cupertino_icons: ^1.0.2
@@ -33,8 +33,6 @@ dev_dependencies:
 
   flutter_lints: ^3.0.0
   import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
-
-
 
 flutter:
   uses-material-design: true

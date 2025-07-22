@@ -26,9 +26,9 @@ Future<void> logout() async {
 }
 
 /// on user login
-void onUserLogin() {
+Future<void> onUserLogin() async {
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
-  ZegoUIKitPrebuiltCallInvitationService().init(
+  await ZegoUIKitPrebuiltCallInvitationService().init(
     appID: yourAppID /*input your AppID*/,
     appSign: yourAppSign /*input your AppSign*/,
     userID: currentUser.id,
@@ -36,6 +36,11 @@ void onUserLogin() {
     plugins: [
       ZegoUIKitSignalingPlugin(),
     ],
+    config: ZegoCallInvitationConfig(
+      offline: ZegoCallInvitationOfflineConfig(
+        autoEnterAcceptedOfflineCall: false,
+      ),
+    ),
     notificationConfig: ZegoCallInvitationNotificationConfig(
       androidNotificationConfig: ZegoCallAndroidNotificationConfig(
         showFullScreen: true,

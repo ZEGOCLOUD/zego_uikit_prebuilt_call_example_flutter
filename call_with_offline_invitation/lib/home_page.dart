@@ -25,6 +25,16 @@ class HomePageState extends State<HomePage> {
       TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      /// skip to call page page if app active by offline call
+      ZegoUIKitPrebuiltCallInvitationService().enterAcceptedOfflineCall();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

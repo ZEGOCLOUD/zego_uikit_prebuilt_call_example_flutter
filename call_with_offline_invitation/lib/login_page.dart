@@ -118,12 +118,12 @@ class LoginPageState extends State<LoginPage> {
                 userID: _userIDTextCtrl.text,
                 userName: 'user_${_userIDTextCtrl.text}',
               ).then((value) {
-                onUserLogin();
-
-                Navigator.pushNamed(
-                  context,
-                  PageRouteNames.home,
-                );
+                onUserLogin().then((_) {
+                  Navigator.pushNamed(
+                    context,
+                    PageRouteNames.home,
+                  );
+                });
               });
             },
       child: const Text('Sign In', style: textStyle),
