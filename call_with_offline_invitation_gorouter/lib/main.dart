@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 // Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit/zego_uikit.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 // Project imports:
@@ -41,7 +42,8 @@ void main() async {
 final GoRouter routerConfig = GoRouter(
   /// 3/5: register the navigator key to MaterialApp or GoRouter
   navigatorKey: navigatorKey,
-  initialLocation: currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
+  initialLocation:
+      currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
   routes: <RouteBase>[
     GoRoute(
       path: PageRouteNames.home,

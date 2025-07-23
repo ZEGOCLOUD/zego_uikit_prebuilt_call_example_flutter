@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit/zego_uikit.dart';
 
 Widget customAvatarBuilder(
   BuildContext context,
@@ -13,17 +14,16 @@ Widget customAvatarBuilder(
 ) {
   return CachedNetworkImage(
     imageUrl: 'https://robohash.org/${user?.id}.png',
-    imageBuilder: (context, imageProvider) => Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: imageProvider,
-          fit: BoxFit.cover,
+    imageBuilder:
+        (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
         ),
-      ),
-    ),
-    progressIndicatorBuilder: (context, url, downloadProgress) =>
-        CircularProgressIndicator(value: downloadProgress.progress),
+    progressIndicatorBuilder:
+        (context, url, downloadProgress) =>
+            CircularProgressIndicator(value: downloadProgress.progress),
     errorWidget: (context, url, error) {
       return ZegoAvatar(user: user, avatarSize: size);
     },

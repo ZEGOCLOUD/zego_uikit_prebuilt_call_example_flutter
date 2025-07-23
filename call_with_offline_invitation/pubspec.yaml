@@ -26,6 +26,7 @@ dependencies:
 
 dependency_overrides:
   intl: ^0.18.1
+  flutter_ringtone_player: ^4.0.0+4
 
 dev_dependencies:
   flutter_test:
