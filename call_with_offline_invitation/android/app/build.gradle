@@ -86,4 +86,6 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
 
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
+
+    implementation 'im.zego:zpns-fcm:2.8.0' //ZPNs package for Google FCM push
 }
