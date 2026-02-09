@@ -73,4 +73,7 @@
 **/tree.txt
 **/client.txt
 **/*.sh
-**/Podfile
+
+Podfile.lock
+pubspec_overrides.yaml
+melos*.iml

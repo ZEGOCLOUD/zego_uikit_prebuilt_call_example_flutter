@@ -2,15 +2,12 @@
 
 ---
 
-## Add ZegoUIKitPrebuiltCallInvitationService as dependencies
+## Add ZegoUIKitPrebuiltCallWithInvitation as dependencies
 
-1. Edit your project's pubspec.yaml and add local project dependencies
+1. Run this command with Flutter:
 
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  zego_uikit_signaling_plugin: ^1.0.7 # Add this line
+```
+flutter pub add zego_uikit_signaling_plugin
 ```
 
 2. Execute the command as shown below under your project's root folder to install all dependencies
@@ -29,27 +26,20 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 ## Integrate the call functionality with the invitation feature
 
-### 1. Warp your widget with ZegoUIKitPrebuiltCallInvitationService
+### 1. Warp your widget with ZegoUIKitPrebuiltCallWithInvitation
 
 > You can get the AppID and AppSign from [ZEGOCLOUD&#39;s Console](https://console.zegocloud.com).
-> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCallInvitationService supports 1 on 1 call for now, and will support group call soon)
+> Users who use the same callID can talk to each other. (ZegoUIKitPrebuiltCallWithInvitation supports 1 on 1 call for now, and will support group call soon)
 
 ```dart
 @override
 Widget build(BuildContext context) {
-   return ZegoUIKitPrebuiltCallInvitationService(
+   return ZegoUIKitPrebuiltCallWithInvitation(
       appID: yourAppID,
       appSign: yourAppSign,
       userID: userID,
       userName: userName,
-      requireConfig: (ZegoCallInvitationData data) {
-         return ZegoUIKitPrebuiltCallConfig.oneOnOneCall(
-            isVideo: true,
-            onOnlySelfInRoom: (context) {
-               Navigator.of(context).pop();
-            },
-         );
-      },
+      plugins: [ZegoUIKitSignalingPlugin()],
       child: YourWidget(),
    );
 }
@@ -58,7 +48,7 @@ Widget build(BuildContext context) {
 ### 2. Add a button for making a call
 
 ```dart
-ZegoStartCallCallInvitation(
+ZegoSendCallInvitationButton(
    isVideoCall: true,
    invitees: [
       ZegoUIKitUser(
@@ -78,17 +68,18 @@ Now, you can invite someone to the call by simply clicking this button.
 ```dart
 @override
 Widget build(BuildContext context) {
-   return ZegoUIKitPrebuiltCallInvitationService(
+   return ZegoUIKitPrebuiltCallWithInvitation(
       appID: yourAppID,
       appSign: yourAppSign,
       userID: userID,
       userName: userName,
+      plugins: [ZegoUIKitSignalingPlugin()],
       //  we will ask you for config when we need it, you can customize your app with data
       requireConfig: (ZegoCallInvitationData data) {
         var config = ZegoUIKitPrebuiltCallConfig();
         config.turnOnCameraWhenJoining =
-            ZegoInvitationType.videoCall == data.type;
-        if (ZegoInvitationType.videoCall == data.type) {
+                ZegoLiveStreamingInvitationType.videoCall == data.type;
+        if (ZegoLiveStreamingInvitationType.videoCall == data.type) {
           config.bottomMenuBarConfig.extendButtons = [
             IconButton(color: Colors.white, icon: const Icon(Icons.phone), onPressed:() {}),
             IconButton(color: Colors.white, icon: const Icon(Icons.cookie), onPressed:() {}),
@@ -111,11 +102,21 @@ Widget build(BuildContext context) {
 
 #### Android
 
-1. If your project was created with a version of flutter that is not the latest stable, you may need to manually modify compileSdkVersion in `your_project/android/app/build.gradle` to 33
+1. If your project is created with Flutter 2.x.x, you will need to open the `your_project/android/app/build.gradle` file, and modify the `compileSdkVersion` to **33**.
+
 
    ![compileSdkVersion](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/compile_sdk_version.png)
 
-2. Need to add app permissions, Open the file `your_project/app/src/main/AndroidManifest.xml`, add the following code:
+2. And in the same file, edit the `minSdkVersion`.
+
+   ```xml
+   minSdkVersion 21
+   ```
+
+![Pics/ZegoUIKit/Flutter/android_class_confusion.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/android_min_sdk_21.png)
+
+
+3. Need to add app permissions, Open the file `your_project/app/src/main/AndroidManifest.xml`, add the following code:
 
    ```xml
    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -132,6 +133,24 @@ Widget build(BuildContext context) {
    ```
 
 <img src="https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/invitation/permission_android.png" width=800>
+
+4. Prevent code obfuscation.
+
+To prevent the ZEGO SDK public class names from being obfuscated, please complete the following steps:
+
+1. Create `proguard-rules.pro` file under [your_project > android > app] with content as show below:
+```
+-keep class **.zego.** { *; }
+-keep class **.**.zego_zpns.** { *; }
+```
+
+2. Add the following config code to the release part of the `your_project/android/app/build.gradle` file.
+```
+proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+```
+
+![image](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/android_class_confusion_zpns.png)
+
 
 #### iOS
 
@@ -153,8 +172,4 @@ Now you can simply click the **Run** or **Debug** button to build and run your A
 
 ## Related guide
 
-[Custom prebuilt UI](!ZEGOUIKIT_Custom_prebuilt_UI)
-
-## Resources
-
-[Complete Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_call_example/tree/master/call_with_invitation/flutter)
+[Custom prebuilt UI](https://docs.zegocloud.com/article/14748)
